@@ -23,9 +23,11 @@ public class Main {
     }
 
     json = sb.toString();
-    System.out.println(json);
+    //System.out.println(json);
 
     Moshi moshi = new Moshi.Builder()
+      .add(new GieldaAdapter())
+      .add(new InfoAdapter())
       .add(new KarieraAdapter())
       .add(new KupowanieAdapter())
       .add(new RobotnikAdapter())
@@ -36,6 +38,7 @@ public class Main {
       .build();
     JsonAdapter<Gielda> jsonAdapter = moshi.adapter(Gielda.class);
     Gielda gielda = jsonAdapter.fromJson(json);
-    System.out.println(gielda);
+
+    gielda.symuluj();
   }
 }

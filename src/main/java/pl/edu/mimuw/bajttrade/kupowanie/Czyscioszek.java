@@ -13,9 +13,9 @@ public class Czyscioszek implements Kupowanie {
   public List<Oferta> coKupuje(Robotnik r, int dzien) {
     var wynik = new ArrayList<Oferta>();
 
-    wynik.add(new OfertaRobotnika(dzien, 100, Przedmiot.JEDZENIE));
+    wynik.add(new OfertaRobotnika(dzien, 100, 1, Przedmiot.JEDZENIE));
     if (r.getIloscZasobow(Przedmiot.UBRANIA) < 200) {
-      wynik.add(new OfertaRobotnika(dzien, 200 - r.getIloscZasobow(Przedmiot.UBRANIA), Przedmiot.UBRANIA));
+      wynik.add(new OfertaRobotnika(dzien, 200 - r.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA));
     }
 
     return wynik;

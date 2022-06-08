@@ -48,6 +48,73 @@ public class Zasoby {
     return jedzenie + diamenty + narzedzia + ubrania + programy;
   }
 
+  public void dodajDiamenty(int ilosc) {
+    this.diamenty += ilosc;
+  }
+
+  public List<Narzedzie> getListaNarzedzi() {
+    return this.listaNarzedzi;
+  }
+
+  public int getNajwyzszyPoziomProgramu() {
+    int maks = 0;
+    for (var p : listaProgramow) {
+      if (p.getPoziom() > maks) maks = p.getPoziom();
+    }
+    return maks;
+  }
+
+  public int iloscProgramowDanegoPoziomu(int poziom) {
+    int wynik = 0;
+    for (var p : listaProgramow) {
+      if (p.getPoziom() == poziom) wynik++;
+    }
+    return wynik;
+  }
+
+  public void usunProgramy(int ile, int poziom) {
+    int usuniete = 0;
+    for (int i = 0; i < listaProgramow.size(); i++) {
+      if (listaProgramow.get(i).getPoziom() == poziom && usuniete < ile) {
+        usuniete++;
+        listaProgramow.remove(i);
+      }
+    }
+    programy -= ile;
+
+    if (programy < 0) {
+      programy = 0;
+      listaProgramow = new ArrayList<>();
+    }
+  }
+
+  public void usunNarzedzia() {
+    this.narzedzia = 0;
+    this.listaNarzedzi = new ArrayList<>();
+  }
+
+  public void usunJedzenie(int ile) {
+    this.jedzenie -= ile;
+    if (this.jedzenie < 0) this.jedzenie = 0;
+  }
+
+  public void zuzyjUbrania(int ile) {
+    int ileFaktycznie = Math.min(ile, ubrania);
+    int i = 0;
+    int zmniejszonych = 0;
+
+    while (zmniejszonych < ileFaktycznie) {
+      zmniejszonych++;
+      listaUbran.get(i).dodajZuzycie();
+      if (listaUbran.get(i).getZuzycie() == listaUbran.get(i).getPoziom() * listaUbran.get(i).getPoziom()) {
+        listaUbran.remove(i);
+        ubrania--;
+      } else {
+        i++;
+      }
+    }
+  }
+
   @Override
   public String toString() {
     var sb = new StringBuilder();

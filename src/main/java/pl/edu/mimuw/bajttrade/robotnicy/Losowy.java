@@ -1,6 +1,7 @@
 package pl.edu.mimuw.bajttrade.robotnicy;
 
-import pl.edu.mimuw.bajttrade.Historia;
+import pl.edu.mimuw.bajttrade.gielda.Historia;
+import pl.edu.mimuw.bajttrade.gielda.Info;
 import pl.edu.mimuw.bajttrade.kariera.Kariera;
 import pl.edu.mimuw.bajttrade.kupowanie.Kupowanie;
 import pl.edu.mimuw.bajttrade.przedmioty.Produktywnosc;
@@ -18,7 +19,7 @@ public class Losowy extends Robotnik {
   }
 
   @Override
-  public Przedmiot coProdukuje(Historia h, int dzien) {
+  public Przedmiot coProdukuje(Historia h, Info info, int dzien) {
     return Przedmiot.values()[new Random().nextInt(Przedmiot.values().length)];
   }
 

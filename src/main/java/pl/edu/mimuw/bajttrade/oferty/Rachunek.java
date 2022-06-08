@@ -1,4 +1,4 @@
-package pl.edu.mimuw.bajttrade;
+package pl.edu.mimuw.bajttrade.oferty;
 
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 

@@ -1,6 +1,7 @@
 package pl.edu.mimuw.bajttrade.robotnicy;
 
-import pl.edu.mimuw.bajttrade.Historia;
+import pl.edu.mimuw.bajttrade.gielda.Historia;
+import pl.edu.mimuw.bajttrade.gielda.Info;
 import pl.edu.mimuw.bajttrade.kariera.Kariera;
 import pl.edu.mimuw.bajttrade.kupowanie.Kupowanie;
 import pl.edu.mimuw.bajttrade.przedmioty.Produktywnosc;
@@ -19,12 +20,12 @@ public class Sredniak extends Robotnik {
   }
 
   @Override
-  public Przedmiot coProdukuje(Historia h, int dzien) {
+  public Przedmiot coProdukuje(Historia h, Info info, int dzien) {
     double maksimum = 0;
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      double sredniaCena = h.getSredniaCena(this.historiaSredniejProdukcji, dzien, p);
+      double sredniaCena = h.getSredniaCenaOstatnichDni(this.historiaSredniejProdukcji, dzien, info, p);
       if (sredniaCena > maksimum) {
         maksimum = sredniaCena;
         wynik = p;

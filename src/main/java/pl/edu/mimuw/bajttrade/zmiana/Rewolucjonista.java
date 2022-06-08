@@ -1,13 +1,33 @@
 package pl.edu.mimuw.bajttrade.zmiana;
 
-import pl.edu.mimuw.bajttrade.Historia;
+import pl.edu.mimuw.bajttrade.gielda.Historia;
+import pl.edu.mimuw.bajttrade.kariera.*;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import pl.edu.mimuw.bajttrade.robotnicy.Robotnik;
 
 public class Rewolucjonista implements Zmiana {
   @Override
-  public Przedmiot karieraPoZmianie(Robotnik r, Historia h, int dzien) {
-    return h.getNajczesciejWystepujacy(r.getId() % 17, dzien);
+  public Kariera karieraPoZmianie(Robotnik r, Historia h, int dzien) {
+    if (dzien % 7 == 0) {
+      Przedmiot najczesciej = h.getNajczesciejWystepujacy(r.getId() % 17, dzien);
+
+      switch (najczesciej) {
+        case DIAMENTY:
+          return new Gornik();
+        case UBRANIA:
+          return new Rzemieslnik();
+        case JEDZENIE:
+          return new Rolnik();
+        case PROGRAMY:
+          return new Programista();
+        case NARZEDZIA:
+          return new Inzynier();
+        default:
+          throw new RuntimeException();
+      }
+    } else {
+      return r.getAktywnaKariera();
+    }
   }
 
   @Override

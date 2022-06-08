@@ -1,5 +1,6 @@
-package pl.edu.mimuw.bajttrade;
+package pl.edu.mimuw.bajttrade.gielda;
 
+import pl.edu.mimuw.bajttrade.oferty.Rachunek;
 import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 
@@ -23,21 +24,29 @@ public class Historia {
     historiaZfinalizowanych.add(rachunek);
   }
 
-  public double getSredniaCena(int liczbaDni, int aktualnyDzien, Przedmiot przedmiot) {
-    double sumaCen = 0;
-    int liczbaJedzenia = 0;
+  public double getSredniaCenaOstatnichDni(int liczbaDni, int aktualnyDzien, Info info, Przedmiot p) {
+    if (p == Przedmiot.DIAMENTY) return 1;
+
+    double[] sumaCen = new double[liczbaDni];
+    int[] liczbaPrzedmiotow = new int[liczbaDni];
+    boolean istnieje = false;
 
     for (var r : historiaZfinalizowanych) {
-      if (r.getDzien() >= aktualnyDzien - liczbaDni && r.getPrzedmiot() == przedmiot) {
-        sumaCen += r.getCena() * r.getIlosc();
-        liczbaJedzenia += r.getIlosc();
+      if (r.getDzien() > aktualnyDzien - liczbaDni && r.getPrzedmiot() == p) {
+        sumaCen[aktualnyDzien - r.getDzien()] += r.getCena() * r.getIlosc();
+        liczbaPrzedmiotow[aktualnyDzien - r.getDzien()] += r.getIlosc();
+        istnieje = true;
       }
     }
 
-    if (liczbaJedzenia == 0) {
-      return 0;
+    if (!istnieje) return info.getCena(p);
+
+    double sumaSrednich = 0;
+    for (int i = 0; i < Math.min(liczbaDni, aktualnyDzien); i++) {
+      if (liczbaPrzedmiotow[i] == 0) sumaSrednich += info.getCena(p);
+      else sumaSrednich += sumaCen[i] / liczbaPrzedmiotow[i];
     }
-    return sumaCen / liczbaJedzenia;
+    return sumaSrednich / Math.min(liczbaDni, aktualnyDzien);
   }
 
   public Przedmiot getNajczesciejWystepujacy(int liczbaDni, int aktualnyDzien) {
@@ -56,5 +65,18 @@ public class Historia {
     }
 
     return najczesciejWystepujacy;
+  }
+
+  @Override
+  public String toString() {
+    var sb = new StringBuilder();
+
+    sb.append("[");
+    for (var o : historiaOfert) {
+      sb.append(o).append("\n");
+    }
+    sb.replace(sb.lastIndexOf("\n"), sb.lastIndexOf("\n"), "]");
+
+    return sb.toString();
   }
 }

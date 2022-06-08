@@ -11,7 +11,7 @@ import java.util.List;
 public class Technofob implements Kupowanie {
   @Override
   public List<Oferta> coKupuje(Robotnik r, int dzien) {
-    return Collections.singletonList(new OfertaRobotnika(dzien, 100, Przedmiot.JEDZENIE));
+    return Collections.singletonList(new OfertaRobotnika(dzien, 100, 1, Przedmiot.JEDZENIE));
   }
 
   @Override
