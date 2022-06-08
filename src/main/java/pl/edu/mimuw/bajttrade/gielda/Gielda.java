@@ -14,7 +14,7 @@ public class Gielda {
   private int dzien;
   private Historia historia;
 
-  public Gielda(Info info, Robotnik[] robotnicy, Spekulant[] spekulanci){
+  public Gielda(Info info, Robotnik[] robotnicy, Spekulant[] spekulanci) {
     this.info = info;
     this.robotnicy = robotnicy;
     this.spekulanci = spekulanci;
@@ -29,15 +29,24 @@ public class Gielda {
       List<Robotnik> robotnicyPracujacy = new ArrayList<>();
       List<Oferta> ofertySprzedazyRobotnikow = new ArrayList<>();
       List<Oferta> ofertyKupnaRobotnikow = new ArrayList<>();
+      List<Oferta> ofertySprzedazySpekulantow = new ArrayList<>();
+      List<Oferta> ofertyKupnaSpekulantow = new ArrayList<>();
 
       for (var r : robotnicy) {
         r.rozegrajPierwszyEtap(historia, dzien, info, robotnicyPracujacy, ofertySprzedazyRobotnikow,
           ofertyKupnaRobotnikow);
       }
 
-      System.out.println(ofertySprzedazyRobotnikow);
-      System.out.println(ofertyKupnaRobotnikow);
-      System.out.println(historia);
+      for (var s : spekulanci) {
+        ofertyKupnaSpekulantow.addAll(s.coKupuje(historia, info, dzien));
+        ofertySprzedazySpekulantow.addAll(s.coSprzedaje(historia, info, dzien));
+      }
+
+      System.out.println("Oferty sprzedazy robotnikow: " + ofertySprzedazyRobotnikow);
+      System.out.println("Oferty kupna robotnikow: " + ofertyKupnaRobotnikow);
+      System.out.println("Oferty sprzedazy spekulantow: " + ofertySprzedazySpekulantow);
+      System.out.println("Oferty kupna spekulantow: " + ofertyKupnaSpekulantow);
+      //System.out.println("Historia:\n" + historia);
 
       for (var r : robotnicyPracujacy) {
         r.rozegrajKoniecDnia();
@@ -54,7 +63,7 @@ public class Gielda {
     sb.append(info.toString()).append("robotnicy:\n");
     for (var r : robotnicy) sb.append(r.toString());
     sb.append("\nspekulanci:\n");
-    for (var s: spekulanci) sb.append(s.toString());
+    for (var s : spekulanci) sb.append(s.toString());
 
 
     return sb.toString();

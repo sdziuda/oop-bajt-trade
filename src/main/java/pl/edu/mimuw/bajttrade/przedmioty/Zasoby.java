@@ -72,6 +72,35 @@ public class Zasoby {
     return wynik;
   }
 
+  public int iloscNarzedziDanegoPoziomu(int poziom) {
+    int wynik = 0;
+    for (var p : listaNarzedzi) {
+      if (p.getPoziom() == poziom) wynik++;
+    }
+    return wynik;
+  }
+
+  public int iloscUbranDanegoPoziomu(int poziom) {
+    int wynik = 0;
+    for (var p : listaUbran) {
+      if (p.getPoziom() == poziom) wynik++;
+    }
+    return wynik;
+  }
+
+  public int iloscElementowDanegoPoziomu(int poziom, Przedmiot p) {
+    switch (p) {
+      case NARZEDZIA:
+        return iloscNarzedziDanegoPoziomu(poziom);
+      case UBRANIA:
+        return iloscUbranDanegoPoziomu(poziom);
+      case PROGRAMY:
+        return iloscProgramowDanegoPoziomu(poziom);
+      default:
+        return getIloscZasobow(Przedmiot.JEDZENIE);
+    }
+  }
+
   public void usunProgramy(int ile, int poziom) {
     int usuniete = 0;
     for (int i = 0; i < listaProgramow.size(); i++) {

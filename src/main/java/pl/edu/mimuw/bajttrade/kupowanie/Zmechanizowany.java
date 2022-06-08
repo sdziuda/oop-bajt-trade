@@ -11,16 +11,18 @@ import java.util.List;
 public class Zmechanizowany implements Kupowanie {
   private final int liczbaNarzedzi;
 
-  public Zmechanizowany(int liczbaNarzedzi) { this.liczbaNarzedzi = liczbaNarzedzi; }
+  public Zmechanizowany(int liczbaNarzedzi) {
+    this.liczbaNarzedzi = liczbaNarzedzi;
+  }
 
   @Override
   public List<Oferta> coKupuje(Robotnik r, int dzien) {
     var wynik = new ArrayList<Oferta>();
 
-    wynik.add(new OfertaRobotnika(dzien, 100, 1, Przedmiot.JEDZENIE));
-    wynik.add(new OfertaRobotnika(dzien, liczbaNarzedzi, 1, Przedmiot.NARZEDZIA));
+    wynik.add(new OfertaRobotnika(dzien, 100, 1, Przedmiot.JEDZENIE, r));
+    wynik.add(new OfertaRobotnika(dzien, liczbaNarzedzi, 1, Przedmiot.NARZEDZIA, r));
     if (r.getIloscZasobow(Przedmiot.UBRANIA) < 200) {
-      wynik.add(new OfertaRobotnika(dzien, 200 - r.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA));
+      wynik.add(new OfertaRobotnika(dzien, 200 - r.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA, r));
     }
 
     return wynik;

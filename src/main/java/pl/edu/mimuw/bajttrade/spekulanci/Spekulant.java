@@ -1,5 +1,7 @@
 package pl.edu.mimuw.bajttrade.spekulanci;
 
+import pl.edu.mimuw.bajttrade.gielda.Historia;
+import pl.edu.mimuw.bajttrade.gielda.Info;
 import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
 
@@ -14,9 +16,9 @@ public abstract class Spekulant {
     this.zasoby = zasoby;
   }
 
-  public abstract List<Oferta> coKupuje();
+  public abstract List<Oferta> coKupuje(Historia h, Info info, int dzien);
 
-  public abstract List<Oferta> coSprzedaje();
+  public abstract List<Oferta> coSprzedaje(Historia h, Info info, int dzien);
 
   @Override
   public String toString() {

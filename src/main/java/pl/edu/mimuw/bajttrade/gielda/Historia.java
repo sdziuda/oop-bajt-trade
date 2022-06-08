@@ -8,16 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Historia {
-  private final List<Oferta> historiaOfert;
+  private final List<Oferta> historiaOfertRobotnikow;
+  private final List<Oferta> historiaOfertSpekulantow;
   private final List<Rachunek> historiaZfinalizowanych;
 
   public Historia() {
-    this.historiaOfert = new ArrayList<>();
+    this.historiaOfertRobotnikow = new ArrayList<>();
+    this.historiaOfertSpekulantow = new ArrayList<>();
     this.historiaZfinalizowanych = new ArrayList<>();
   }
 
-  public void dodajOferta(Oferta oferta) {
-    historiaOfert.add(oferta);
+  public void dodajOfertaRobotnika(Oferta oferta) {
+    historiaOfertRobotnikow.add(oferta);
+  }
+
+  public void dodajOfertaSpekulanta(Oferta oferta) {
+    historiaOfertSpekulantow.add(oferta);
   }
 
   public void dodajZfinalizowana(Rachunek rachunek) {
@@ -54,7 +60,13 @@ public class Historia {
     int maksimum = 0;
     Przedmiot najczesciejWystepujacy = null;
 
-    for (var r : historiaOfert) {
+    for (var r : historiaOfertRobotnikow) {
+      if (r.getDzien() >= aktualnyDzien - liczbaDni) {
+        liczbaPrzedmiotow[r.getPrzedmiot().ordinal()] += r.getIlosc();
+      }
+    }
+
+    for (var r : historiaOfertSpekulantow) {
       if (r.getDzien() >= aktualnyDzien - liczbaDni) {
         liczbaPrzedmiotow[r.getPrzedmiot().ordinal()] += r.getIlosc();
         if (liczbaPrzedmiotow[r.getPrzedmiot().ordinal()] > maksimum) {
@@ -67,12 +79,25 @@ public class Historia {
     return najczesciejWystepujacy;
   }
 
+  public int getLiczbaPrzedmiotowRobotnikow(int dzien, Przedmiot p) {
+    int wynik = 0;
+    for (var r : historiaOfertRobotnikow) {
+      if (r.getPrzedmiot() == p) {
+        wynik += r.getIlosc();
+      }
+    }
+    return wynik;
+  }
+
   @Override
   public String toString() {
     var sb = new StringBuilder();
 
     sb.append("[");
-    for (var o : historiaOfert) {
+    for (var o : historiaOfertRobotnikow) {
+      sb.append(o).append("\n");
+    }
+    for (var o : historiaOfertSpekulantow) {
       sb.append(o).append("\n");
     }
     sb.replace(sb.lastIndexOf("\n"), sb.lastIndexOf("\n"), "]");

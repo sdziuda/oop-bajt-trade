@@ -19,13 +19,13 @@ public class Gadzeciarz implements Kupowanie {
   public List<Oferta> coKupuje(Robotnik r, int dzien) {
     var wynik = new ArrayList<Oferta>();
 
-    wynik.add(new OfertaRobotnika(dzien, 100, 1, Przedmiot.JEDZENIE));
-    wynik.add(new OfertaRobotnika(dzien, liczbaNarzedzi, 1, Przedmiot.NARZEDZIA));
+    wynik.add(new OfertaRobotnika(dzien, 100, 1, Przedmiot.JEDZENIE, r));
+    wynik.add(new OfertaRobotnika(dzien, liczbaNarzedzi, 1, Przedmiot.NARZEDZIA, r));
     if (r.getIloscZasobow(Przedmiot.UBRANIA) < 200) {
-      wynik.add(new OfertaRobotnika(dzien, 200 - r.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA));
+      wynik.add(new OfertaRobotnika(dzien, 200 - r.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA, r));
     }
     if (r.getIloscWyprodukowanych() > 1) {
-      wynik.add(new OfertaRobotnika(dzien, r.getIloscWyprodukowanych(), 1, Przedmiot.PROGRAMY));
+      wynik.add(new OfertaRobotnika(dzien, r.getIloscWyprodukowanych(), 1, Przedmiot.PROGRAMY, r));
     }
 
     return wynik;

@@ -145,7 +145,6 @@ public abstract class Robotnik {
     if (przedmiotProdukowany != kariera.getPremiowanyPrzedmiot()) sumaPremie -= kariera.premia();
     this.iloscWyprodukowanych = this.produktywnosc.getProduktywnosc(przedmiotProdukowany) / 100 * sumaPremie;
     if (iloscWyprodukowanych < 0) return;
-    System.out.println("wyprodukuje: " + this.iloscWyprodukowanych + " x " + przedmiotProdukowany);
 
     if (przedmiotProdukowany != Przedmiot.DIAMENTY) {
       listaRobotnikowPracujacych.add(this);
@@ -161,8 +160,8 @@ public abstract class Robotnik {
             iloscDanegoPoziomu = iloscWyprodukowanych - ilosc;
             ilosc = iloscWyprodukowanych;
           }
-          ofertySprzedazyRobotnikow.add(new OfertaRobotnika(dzien, iloscDanegoPoziomu, i, przedmiotProdukowany));
-          h.dodajOferta(new OfertaRobotnika(dzien, iloscDanegoPoziomu, i, przedmiotProdukowany));
+          ofertySprzedazyRobotnikow.add(new OfertaRobotnika(dzien, iloscDanegoPoziomu, i, przedmiotProdukowany, this));
+          h.dodajOfertaRobotnika(new OfertaRobotnika(dzien, iloscDanegoPoziomu, i, przedmiotProdukowany, this));
           zasoby.usunProgramy(iloscDanegoPoziomu, i);
         }
       }
@@ -171,8 +170,9 @@ public abstract class Robotnik {
         domyslnyPoziom = this.kariera.getPoziom();
       }
       ofertySprzedazyRobotnikow.add(new OfertaRobotnika(dzien, iloscWyprodukowanych - ilosc, domyslnyPoziom,
-        przedmiotProdukowany));
-      h.dodajOferta(new OfertaRobotnika(dzien, iloscWyprodukowanych - ilosc, domyslnyPoziom, przedmiotProdukowany));
+        przedmiotProdukowany, this));
+      h.dodajOfertaRobotnika(new OfertaRobotnika(dzien, iloscWyprodukowanych - ilosc, domyslnyPoziom, przedmiotProdukowany,
+        this));
     } else {
       zasoby.dodajDiamenty(this.iloscWyprodukowanych);
     }
@@ -184,9 +184,9 @@ public abstract class Robotnik {
   private void kupuje(Historia h, int dzien, List<Oferta> ofertyKupnaRobotnikow) {
     var listaZakupow = kupowanie.coKupuje(this, dzien);
     ofertyKupnaRobotnikow.addAll(listaZakupow.stream()
-      .map(o -> new OfertaRobotnika(o.getDzien(), o.getIlosc(), o.getPoziom(), o.getPrzedmiot()))
+      .map(o -> new OfertaRobotnika(o.getDzien(), o.getIlosc(), o.getPoziom(), o.getPrzedmiot(), this))
       .collect(Collectors.toList()));
-    listaZakupow.forEach(o -> h.dodajOferta(new OfertaRobotnika(o.getDzien(), o.getIlosc(), o.getPoziom(),
-      o.getPrzedmiot())));
+    listaZakupow.forEach(o -> h.dodajOfertaRobotnika(new OfertaRobotnika(o.getDzien(), o.getIlosc(), o.getPoziom(),
+      o.getPrzedmiot(), this)));
   }
 }
