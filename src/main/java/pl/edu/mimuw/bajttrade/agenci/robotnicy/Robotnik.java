@@ -1,5 +1,6 @@
-package pl.edu.mimuw.bajttrade.robotnicy;
+package pl.edu.mimuw.bajttrade.agenci.robotnicy;
 
+import pl.edu.mimuw.bajttrade.agenci.Agent;
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
 import pl.edu.mimuw.bajttrade.oferty.Oferta;
@@ -13,40 +14,35 @@ import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class Robotnik {
-  private int id;
+public abstract class Robotnik extends Agent {
   private Kariera kariera;
   private Kupowanie kupowanie;
   private Uczenie uczenie;
   private Zmiana zmiana;
   private Produktywnosc produktywnosc;
-  private Zasoby zasoby;
 
   private List<Integer> premie;
   private int iloscWyprodukowanych;
   private List<Kariera> sciezkiKariery;
   private int ileNieJadl;
+  private boolean czyZyje;
 
   protected Robotnik(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
                      Produktywnosc produktywnosc, Zasoby zasoby) {
-    this.id = id;
+    super(id, zasoby);
     this.kariera = kariera;
     this.kariera.setPoziom(poziom);
     this.kupowanie = kupowanie;
     this.uczenie = uczenie;
     this.zmiana = zmiana;
     this.produktywnosc = produktywnosc;
-    this.zasoby = zasoby;
 
     this.sciezkiKariery = new ArrayList<>();
     this.sciezkiKariery.add(this.kariera);
     this.premie = new ArrayList<>();
     this.premie.add(50);
     this.ileNieJadl = 0;
-  }
-
-  public int getId() {
-    return this.id;
+    this.czyZyje = true;
   }
 
   public Kariera getAktywnaKariera() {
@@ -57,29 +53,40 @@ public abstract class Robotnik {
     return this.produktywnosc.getProduktywnosc(p);
   }
 
-  public int getIloscZasobow(Przedmiot p) {
-    return this.zasoby.getIloscZasobow(p);
-  }
-
   public int getIloscWyprodukowanych() {
     return this.iloscWyprodukowanych;
   }
 
   public void rozegrajPierwszyEtap(Historia h, int dzien, Info info, List<Robotnik> listaRobotnikowPracujacych,
                                    List<Oferta> ofertySprzedazyRobotnikow, List<Oferta> ofertyKupnaRobotnikow) {
+    if (!czyZyje) return;
+
     if (uczenie.czySieUczy(this, h, info, dzien)) {
       uczySie(h, dzien);
     } else {
+      listaRobotnikowPracujacych.add(this);
       pracuje(h, dzien, info, listaRobotnikowPracujacych, ofertySprzedazyRobotnikow);
+      if (!czyZyje) {
+        listaRobotnikowPracujacych.remove(this);
+        return;
+      }
       kupuje(h, dzien, ofertyKupnaRobotnikow);
     }
   }
 
   public void rozegrajKoniecDnia() {
     zasoby.usunNarzedzia();
-    if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) == 0) ileNieJadl++;
-    else ileNieJadl = 0;
-    zasoby.usunJedzenie(100);
+    if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) <= 0) {
+      ileNieJadl++;
+    } else {
+      if (ileNieJadl == 1) {
+        premie.remove(Integer.valueOf(-100));
+      } else if (ileNieJadl == 2) {
+        premie.remove(Integer.valueOf(-300));
+      }
+      ileNieJadl = 0;
+      zasoby.usunJedzenie(100);
+    }
     zasoby.zuzyjUbrania(100);
   }
 
@@ -129,14 +136,15 @@ public abstract class Robotnik {
 
   private void pracuje(Historia h, int dzien, Info info, List<Robotnik> listaRobotnikowPracujacych,
                        List<Oferta> ofertySprzedazyRobotnikow) {
-    if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) < 100) premie.add(-1 * info.getX());
+    if (zasoby.getIloscZasobow(Przedmiot.UBRANIA) < 100) premie.add(-1 * info.getKaraZaBrakUbran());
     premie.add(zasoby.getListaNarzedzi().stream().mapToInt(Narzedzie::getPoziom).sum());
     if (ileNieJadl == 1) premie.add(-100);
     else if (ileNieJadl == 2) {
       premie.remove(Integer.valueOf(-100));
       premie.add(-300);
-    } else if (ileNieJadl == 3) {
-      //zdech
+    } else if (ileNieJadl >= 3) {
+      this.czyZyje = false;
+      this.zasoby.usunWszystkieDiamenty();
       return;
     }
 
@@ -144,10 +152,9 @@ public abstract class Robotnik {
     int sumaPremie = premie.stream().mapToInt(v -> v).sum() + 100;
     if (przedmiotProdukowany != kariera.getPremiowanyPrzedmiot()) sumaPremie -= kariera.premia();
     this.iloscWyprodukowanych = this.produktywnosc.getProduktywnosc(przedmiotProdukowany) / 100 * sumaPremie;
-    if (iloscWyprodukowanych < 0) return;
+    if (iloscWyprodukowanych <= 0) return;
 
     if (przedmiotProdukowany != Przedmiot.DIAMENTY) {
-      listaRobotnikowPracujacych.add(this);
       int ilosc = 0;
       while ((przedmiotProdukowany == Przedmiot.NARZEDZIA || przedmiotProdukowany == Przedmiot.UBRANIA)
         && ilosc < Math.min(this.iloscWyprodukowanych, this.zasoby.getIloscZasobow(Przedmiot.PROGRAMY))) {
@@ -174,10 +181,11 @@ public abstract class Robotnik {
       h.dodajOfertaRobotnika(new OfertaRobotnika(dzien, iloscWyprodukowanych - ilosc, domyslnyPoziom, przedmiotProdukowany,
         this));
     } else {
+      listaRobotnikowPracujacych.remove(this);
       zasoby.dodajDiamenty(this.iloscWyprodukowanych);
     }
 
-    if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) < 100) premie.remove(Integer.valueOf(-1 * info.getX()));
+    if (zasoby.getIloscZasobow(Przedmiot.UBRANIA) < 100) premie.remove(Integer.valueOf(-1 * info.getKaraZaBrakUbran()));
     premie.remove(Integer.valueOf(zasoby.getListaNarzedzi().stream().mapToInt(Narzedzie::getPoziom).sum()));
   }
 

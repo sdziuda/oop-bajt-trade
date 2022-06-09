@@ -1,8 +1,7 @@
-package pl.edu.mimuw.bajttrade.spekulanci;
+package pl.edu.mimuw.bajttrade.agenci.spekulanci;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
-import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.oferty.OfertaSpekulanta;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
@@ -17,8 +16,8 @@ public class Wypukly extends Spekulant {
   }
 
   @Override
-  public List<Oferta> coKupuje(Historia h, Info info, int dzien) {
-    List<Oferta> wynik = new ArrayList<>();
+  public List<OfertaSpekulanta> coKupuje(Historia h, Info info, int dzien) {
+    List<OfertaSpekulanta> wynik = new ArrayList<>();
 
     for (var p : Przedmiot.values()) {
       if (p == Przedmiot.DIAMENTY) continue;
@@ -44,8 +43,8 @@ public class Wypukly extends Spekulant {
   }
 
   @Override
-  public List<Oferta> coSprzedaje(Historia h, Info info, int dzien) {
-    List<Oferta> wynik = new ArrayList<>();
+  public List<OfertaSpekulanta> coSprzedaje(Historia h, Info info, int dzien) {
+    List<OfertaSpekulanta> wynik = new ArrayList<>();
 
     for (var p : Przedmiot.values()) {
       if (p == Przedmiot.DIAMENTY) continue;

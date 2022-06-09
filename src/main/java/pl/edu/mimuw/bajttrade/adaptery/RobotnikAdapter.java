@@ -2,7 +2,7 @@ package pl.edu.mimuw.bajttrade.adaptery;
 
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
-import pl.edu.mimuw.bajttrade.robotnicy.*;
+import pl.edu.mimuw.bajttrade.agenci.robotnicy.*;
 
 public class RobotnikAdapter {
   @ToJson
@@ -12,7 +12,7 @@ public class RobotnikAdapter {
 
   @FromJson
   public Robotnik fromJson(RobotnikJson robotnik) {
-    switch (robotnik.produkcja) {
+    switch (robotnik.produkcja.typ) {
       case "chciwy":
         return new Chciwy(robotnik.id, robotnik.poziom, robotnik.kariera, robotnik.kupowanie, robotnik.uczenie,
           robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby);
@@ -24,10 +24,10 @@ public class RobotnikAdapter {
           robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby);
       case "perspektywiczny":
         return new Perspektywiczny(robotnik.id, robotnik.poziom, robotnik.kariera, robotnik.kupowanie, robotnik.uczenie,
-          robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby, robotnik.historia_perspektywy);
+          robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby, robotnik.produkcja.historia_perspektywy);
       case "sredniak":
         return new Sredniak(robotnik.id, robotnik.poziom, robotnik.kariera, robotnik.kupowanie, robotnik.uczenie,
-          robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby, robotnik.historia_sredniej_produkcji);
+          robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby, robotnik.produkcja.historia_sredniej_produkcji);
       default:
         throw new RuntimeException();
     }

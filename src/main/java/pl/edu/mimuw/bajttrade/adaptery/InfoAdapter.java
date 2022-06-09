@@ -15,11 +15,11 @@ public class InfoAdapter {
   public Info fromJson(InfoJson info) {
     switch (info.gielda) {
       case "socjalistyczna":
-        return new Info(info.dlugosc, new Socjalistyczna(), info.x, info.ceny);
+        return new Info(info.dlugosc, new Socjalistyczna(), info.kara_za_brak_ubran, info.ceny);
       case "kapitalistyczna":
-        return new Info(info.dlugosc, new Kapitalistyczna(), info.x, info.ceny);
+        return new Info(info.dlugosc, new Kapitalistyczna(), info.kara_za_brak_ubran, info.ceny);
       case "zrownowazona":
-        return new Info(info.dlugosc, new Zrownowazona(), info.x, info.ceny);
+        return new Info(info.dlugosc, new Zrownowazona(), info.kara_za_brak_ubran, info.ceny);
       default:
         throw new RuntimeException();
     }

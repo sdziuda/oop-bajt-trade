@@ -21,9 +21,7 @@ public class Main {
     while ((json = bf.readLine()) != null) {
       sb.append(json).append("\n");
     }
-
     json = sb.toString();
-    //System.out.println(json);
 
     Moshi moshi = new Moshi.Builder()
       .add(new GieldaAdapter())
@@ -39,6 +37,8 @@ public class Main {
     JsonAdapter<Gielda> jsonAdapter = moshi.adapter(Gielda.class);
     Gielda gielda = jsonAdapter.fromJson(json);
 
-    gielda.symuluj();
+    if (gielda != null) {
+      gielda.symuluj();
+    }
   }
 }

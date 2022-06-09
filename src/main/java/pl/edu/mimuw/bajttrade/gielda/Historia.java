@@ -39,9 +39,15 @@ public class Historia {
 
     for (var r : historiaZfinalizowanych) {
       if (r.getDzien() > aktualnyDzien - liczbaDni && r.getPrzedmiot() == p) {
-        sumaCen[aktualnyDzien - r.getDzien()] += r.getCena() * r.getIlosc();
-        liczbaPrzedmiotow[aktualnyDzien - r.getDzien()] += r.getIlosc();
-        istnieje = true;
+        if (aktualnyDzien - r.getDzien() == 0) {
+          sumaCen[aktualnyDzien - r.getDzien()] += info.getCena(p);
+          liczbaPrzedmiotow[aktualnyDzien - r.getDzien()] += 1;
+          istnieje = true;
+        } else if (aktualnyDzien - r.getDzien() > 0) {
+          sumaCen[aktualnyDzien - r.getDzien()] += r.getCena() * r.getIlosc();
+          liczbaPrzedmiotow[aktualnyDzien - r.getDzien()] += r.getIlosc();
+          istnieje = true;
+        }
       }
     }
 
@@ -82,7 +88,7 @@ public class Historia {
   public int getLiczbaPrzedmiotowRobotnikow(int dzien, Przedmiot p) {
     int wynik = 0;
     for (var r : historiaOfertRobotnikow) {
-      if (r.getPrzedmiot() == p) {
+      if (r.getPrzedmiot() == p && r.getDzien() == dzien) {
         wynik += r.getIlosc();
       }
     }

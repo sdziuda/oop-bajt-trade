@@ -3,7 +3,7 @@
   {
     "dlugosc": 5,
     "gielda": "socjalistyczna",
-    "x": 2,
+    "kara_za_brak_ubran": 2,
     "ceny":
     {
       "programy": 10,
@@ -17,20 +17,22 @@
       "id": 1,
       "poziom": 1,
       "kariera": "programista",
-      "kupowanie": {
+      "kupowanie":
+      {
         "typ": "gadzeciarz",
         "liczba_narzedzi": 15
       },
-      "produkcja": "chciwy",
+      "produkcja":
+      {
+        "typ": "chciwy"
+      },
       "uczenie":
       {
         "typ": "student",
         "zapas": 2,
         "okres": 5
       },
-
       "zmiana": "rewolucjonista",
-
       "produktywnosc":
       {
         "programy": 100,
@@ -47,18 +49,18 @@
         "jedzenie": 100,
         "programy": 100
       }
-    }
-  ],
-  "spekulanci": [{
-    "id": 12,
-    "kariera": "wypukly",
-    "zasoby":
+    }],
+  "spekulanci": [
     {
-      "diamenty": 100,
-      "ubrania": 100,
-      "narzedzia": 100,
-      "jedzenie": 100,
-      "programy": 100
-    }
-  }]
+      "id": 12,
+      "kariera": "wypukly",
+      "zasoby":
+      {
+        "diamenty": 100,
+        "ubrania": 100,
+        "narzedzia": 100,
+        "jedzenie": 100,
+        "programy": 100
+      }
+    }]
 }

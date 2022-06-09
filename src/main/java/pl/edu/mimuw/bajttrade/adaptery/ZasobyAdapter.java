@@ -12,6 +12,6 @@ public class ZasobyAdapter {
 
   @FromJson
   public Zasoby fromJson(ZasobyJson zasoby) {
-    return new Zasoby(zasoby.diamenty, zasoby.ubrania, zasoby.narzedzia, zasoby.jedzenie, zasoby.programy);
+    return new Zasoby(zasoby.jedzenie, zasoby.diamenty, zasoby.narzedzia, zasoby.ubrania, zasoby.programy);
   }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Zasoby {
   private int jedzenie;
-  private int diamenty;
+  private double diamenty;
   private int ubrania;
   private int narzedzia;
   private int programy;
@@ -13,7 +13,7 @@ public class Zasoby {
   private List<Ubranie> listaUbran;
   private List<Program> listaProgramow;
 
-  public Zasoby(int jedzenie, int diamenty, int narzedzia, int ubrania, int programy) {
+  public Zasoby(int jedzenie, double diamenty, int narzedzia, int ubrania, int programy) {
     this.jedzenie = jedzenie;
     this.diamenty = diamenty;
     this.narzedzia = narzedzia;
@@ -31,8 +31,6 @@ public class Zasoby {
     switch (p) {
       case JEDZENIE:
         return jedzenie;
-      case DIAMENTY:
-        return diamenty;
       case NARZEDZIA:
         return narzedzia;
       case UBRANIA:
@@ -40,16 +38,24 @@ public class Zasoby {
       case PROGRAMY:
         return programy;
       default:
-        return 0;
+        throw new RuntimeException("Nie powinno się tak pobierać diamentów");
     }
   }
 
-  public int getSumaIlosciZasobow() {
+  public double getDiamenty() {
+    return diamenty;
+  }
+
+  public double getSumaIlosciZasobow() {
     return jedzenie + diamenty + narzedzia + ubrania + programy;
   }
 
-  public void dodajDiamenty(int ilosc) {
+  public void dodajDiamenty(double ilosc) {
     this.diamenty += ilosc;
+  }
+
+  public void usunWszystkieDiamenty() {
+    this.diamenty = 0;
   }
 
   public List<Narzedzie> getListaNarzedzi() {
@@ -97,7 +103,7 @@ public class Zasoby {
       case PROGRAMY:
         return iloscProgramowDanegoPoziomu(poziom);
       default:
-        return getIloscZasobow(Przedmiot.JEDZENIE);
+        return 0;
     }
   }
 
@@ -155,5 +161,37 @@ public class Zasoby {
     sb.append("\t\t ubrania: ").append(this.ubrania).append("\n");
 
     return sb.toString();
+  }
+
+  public void odejmijDiamenty(double i) {
+    this.diamenty -= i;
+  }
+
+  public void dodajZasob(Przedmiot przedmiot, int ile, int poziom) {
+    switch (przedmiot) {
+      case JEDZENIE:
+        this.jedzenie += ile;
+        break;
+      case NARZEDZIA:
+        this.narzedzia += ile;
+        for (int i = 0; i < ile; i++) {
+          this.listaNarzedzi.add(new Narzedzie(poziom));
+        }
+        break;
+      case UBRANIA:
+        this.ubrania += ile;
+        for (int i = 0; i < ile; i++) {
+          this.listaUbran.add(new Ubranie(0, poziom));
+        }
+        break;
+      case PROGRAMY:
+        this.programy += ile;
+        for (int i = 0; i < ile; i++) {
+          this.listaProgramow.add(new Program(poziom));
+        }
+        break;
+      default:
+        break;
+    }
   }
 }

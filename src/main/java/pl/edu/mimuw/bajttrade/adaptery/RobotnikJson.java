@@ -12,17 +12,14 @@ public class RobotnikJson {
   public int poziom;
   public Kariera kariera;
   public Kupowanie kupowanie;
-  public String produkcja;
+  public ProdukcjaJson produkcja;
   public Uczenie uczenie;
   public Zmiana zmiana;
   public Produktywnosc produktywnosc;
   public Zasoby zasoby;
-  public int historia_sredniej_produkcji;
-  public int historia_perspektywy;
 
-  public RobotnikJson(int id, int poziom, Kariera kariera, Kupowanie kupowanie, String produkcja, Uczenie uczenie,
-                  Zmiana zmiana, Produktywnosc produktywnosc, Zasoby zasoby, int historia_sredniej_produkcji,
-                  int historia_perspektywy) {
+  public RobotnikJson(int id, int poziom, Kariera kariera, Kupowanie kupowanie, ProdukcjaJson produkcja, Uczenie uczenie,
+                  Zmiana zmiana, Produktywnosc produktywnosc, Zasoby zasoby) {
     this.id = id;
     this.poziom = poziom;
     this.kariera = kariera;
@@ -32,7 +29,5 @@ public class RobotnikJson {
     this.zmiana = zmiana;
     this.produktywnosc = produktywnosc;
     this.zasoby = zasoby;
-    this.historia_sredniej_produkcji = historia_sredniej_produkcji;
-    this.historia_perspektywy = historia_perspektywy;
   }
 }

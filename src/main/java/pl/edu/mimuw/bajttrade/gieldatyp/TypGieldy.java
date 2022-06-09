@@ -1,11 +1,11 @@
 package pl.edu.mimuw.bajttrade.gieldatyp;
 
-import pl.edu.mimuw.bajttrade.robotnicy.Robotnik;
+import pl.edu.mimuw.bajttrade.oferty.Oferta;
 
 import java.util.List;
 
 public interface TypGieldy {
 
-  List<Robotnik> kolejnosc(Robotnik[] robotnicy, int dzien);
+  List<Oferta> kolejnosc(List<Oferta> ofertyRobotnikow, int dzien);
 
 }

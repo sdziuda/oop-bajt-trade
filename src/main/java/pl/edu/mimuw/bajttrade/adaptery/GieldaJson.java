@@ -1,8 +1,8 @@
 package pl.edu.mimuw.bajttrade.adaptery;
 
 import pl.edu.mimuw.bajttrade.gielda.Info;
-import pl.edu.mimuw.bajttrade.robotnicy.Robotnik;
-import pl.edu.mimuw.bajttrade.spekulanci.Spekulant;
+import pl.edu.mimuw.bajttrade.agenci.robotnicy.Robotnik;
+import pl.edu.mimuw.bajttrade.agenci.spekulanci.Spekulant;
 
 public class GieldaJson {
   public Info info;

@@ -3,7 +3,7 @@ package pl.edu.mimuw.bajttrade.kupowanie;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.oferty.OfertaRobotnika;
-import pl.edu.mimuw.bajttrade.robotnicy.Robotnik;
+import pl.edu.mimuw.bajttrade.agenci.robotnicy.Robotnik;
 
 import java.util.Collections;
 import java.util.List;

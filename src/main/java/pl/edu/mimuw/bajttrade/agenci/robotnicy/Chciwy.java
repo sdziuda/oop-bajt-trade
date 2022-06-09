@@ -1,4 +1,4 @@
-package pl.edu.mimuw.bajttrade.robotnicy;
+package pl.edu.mimuw.bajttrade.agenci.robotnicy;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
@@ -10,21 +10,31 @@ import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
 import pl.edu.mimuw.bajttrade.uczenie.Uczenie;
 import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
-import java.util.Random;
-
-public class Losowy extends Robotnik {
-  public Losowy (int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                        Produktywnosc produktywnosc, Zasoby zasoby) {
+public class Chciwy extends Robotnik {
+  public Chciwy(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
+                   Produktywnosc produktywnosc, Zasoby zasoby) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
   }
 
   @Override
   public Przedmiot coProdukuje(Historia h, Info info, int dzien) {
-    return Przedmiot.values()[new Random().nextInt(Przedmiot.values().length)];
+    double maksimum = 0;
+    Przedmiot wynik = null;
+
+    for (var p : Przedmiot.values()) {
+      double sredniaCena = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
+      double zysk = sredniaCena * this.getProduktywnosc(p);
+      if (zysk > maksimum) {
+        maksimum = zysk;
+        wynik = p;
+      }
+    }
+
+    return wynik;
   }
 
   @Override
   public String toString() {
-    return super.toString() + "\t produkcja: losowy\n";
+    return super.toString() + "\t produkcja: chciwy\n";
   }
 }

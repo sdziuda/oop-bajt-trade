@@ -1,4 +1,4 @@
-package pl.edu.mimuw.bajttrade.spekulanci;
+package pl.edu.mimuw.bajttrade.agenci.spekulanci;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
@@ -17,7 +17,7 @@ public class RegulujacyRynek extends Spekulant {
   }
 
   @Override
-  public List<Oferta> coKupuje(Historia h, Info info, int dzien) {
+  public List<OfertaSpekulanta> coKupuje(Historia h, Info info, int dzien) {
     if (dzien == 1) {
       return Collections.emptyList();
     }
@@ -35,7 +35,7 @@ public class RegulujacyRynek extends Spekulant {
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.JEDZENIE)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.JEDZENIE), 1) * 0.9;
 
-    List<Oferta> wynik = new ArrayList<>();
+    List<OfertaSpekulanta> wynik = new ArrayList<>();
 
     for (int i = 1; i <= dzien; i++) {
       wynik.add(new OfertaSpekulanta(dzien, 100, i, Przedmiot.NARZEDZIA, cenaNarzedzi, this));
@@ -52,7 +52,7 @@ public class RegulujacyRynek extends Spekulant {
   }
 
   @Override
-  public List<Oferta> coSprzedaje(Historia h, Info info, int dzien) {
+  public List<OfertaSpekulanta> coSprzedaje(Historia h, Info info, int dzien) {
     if (dzien == 1) {
       return Collections.emptyList();
     }
@@ -70,7 +70,7 @@ public class RegulujacyRynek extends Spekulant {
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.JEDZENIE)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.JEDZENIE), 1) * 1.1;
 
-    List<Oferta> wynik = new ArrayList<>();
+    List<OfertaSpekulanta> wynik = new ArrayList<>();
 
     for (int i = 1; i <= dzien; i++) {
       if (this.zasoby.iloscNarzedziDanegoPoziomu(i) > 0) {

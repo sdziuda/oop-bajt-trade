@@ -1,4 +1,4 @@
-package pl.edu.mimuw.bajttrade.robotnicy;
+package pl.edu.mimuw.bajttrade.agenci.robotnicy;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
@@ -10,10 +10,13 @@ import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
 import pl.edu.mimuw.bajttrade.uczenie.Uczenie;
 import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
-public class Chciwy extends Robotnik {
-  public Chciwy(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                   Produktywnosc produktywnosc, Zasoby zasoby) {
+public class Sredniak extends Robotnik {
+  private int historiaSredniejProdukcji;
+
+  public Sredniak (int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
+                 Produktywnosc produktywnosc, Zasoby zasoby, int historiaSredniejProdukcji) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
+    this.historiaSredniejProdukcji = historiaSredniejProdukcji;
   }
 
   @Override
@@ -22,10 +25,9 @@ public class Chciwy extends Robotnik {
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      double sredniaCena = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
-      double zysk = sredniaCena * this.getProduktywnosc(p);
-      if (zysk > maksimum) {
-        maksimum = zysk;
+      double sredniaCena = h.getSredniaCenaOstatnichDni(this.historiaSredniejProdukcji, dzien, info, p);
+      if (sredniaCena > maksimum) {
+        maksimum = sredniaCena;
         wynik = p;
       }
     }
@@ -35,6 +37,6 @@ public class Chciwy extends Robotnik {
 
   @Override
   public String toString() {
-    return super.toString() + "\t produkcja: chciwy\n";
+    return super.toString() + "\t produkcja: sredniak\n";
   }
 }

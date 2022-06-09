@@ -2,7 +2,7 @@ package pl.edu.mimuw.bajttrade.zmiana;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.kariera.Kariera;
-import pl.edu.mimuw.bajttrade.robotnicy.Robotnik;
+import pl.edu.mimuw.bajttrade.agenci.robotnicy.Robotnik;
 
 public class Konserwatysta implements Zmiana {
   @Override

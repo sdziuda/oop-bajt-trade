@@ -1,4 +1,4 @@
-package pl.edu.mimuw.bajttrade.robotnicy;
+package pl.edu.mimuw.bajttrade.agenci.robotnicy;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
@@ -10,20 +10,25 @@ import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
 import pl.edu.mimuw.bajttrade.uczenie.Uczenie;
 import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
-public class Krotkowzroczny extends Robotnik {
-  public Krotkowzroczny(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                Produktywnosc produktywnosc, Zasoby zasoby) {
+public class Perspektywiczny extends Robotnik {
+  private int historiaPerspektywy;
+
+  public Perspektywiczny(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
+                         Produktywnosc produktywnosc, Zasoby zasoby, int historiaPerspektywy) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
+    this.historiaPerspektywy = historiaPerspektywy;
   }
 
   @Override
   public Przedmiot coProdukuje(Historia h, Info info, int dzien) {
-    double maks = 0;
+    double maksimum = 0;
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      if (h.getSredniaCenaOstatnichDni(1, dzien, info, p) > maks) {
-        maks = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
+      double zmiana = h.getSredniaCenaOstatnichDni(1, dzien, info, p)
+        - h.getSredniaCenaOstatnichDni(1, dzien - historiaPerspektywy, info, p);
+      if (zmiana > maksimum) {
+        maksimum = zmiana;
         wynik = p;
       }
     }
@@ -33,6 +38,6 @@ public class Krotkowzroczny extends Robotnik {
 
   @Override
   public String toString() {
-    return super.toString() + "\t produkcja: krotkowzroczny\n";
+    return super.toString() + "\t produkcja: perspektywiczny\n";
   }
 }
