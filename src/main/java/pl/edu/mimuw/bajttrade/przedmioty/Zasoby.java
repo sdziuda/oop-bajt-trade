@@ -123,9 +123,25 @@ public class Zasoby {
     }
   }
 
-  public void usunNarzedzia() {
+  public void usunWszystkieNarzedzia() {
     this.narzedzia = 0;
     this.listaNarzedzi = new ArrayList<>();
+  }
+
+  public void usunNarzedzia(int ile, int poziom) {
+    int usuniete = 0;
+    for (int i = 0; i < listaNarzedzi.size(); i++) {
+      if (listaNarzedzi.get(i).getPoziom() == poziom && usuniete < ile) {
+        usuniete++;
+        listaNarzedzi.remove(i);
+      }
+    }
+    narzedzia -= ile;
+
+    if (narzedzia < 0) {
+      narzedzia = 0;
+      listaNarzedzi = new ArrayList<>();
+    }
   }
 
   public void usunJedzenie(int ile) {
@@ -150,17 +166,20 @@ public class Zasoby {
     }
   }
 
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
+  public void usunUbrania(int ile, int poziom) {
+    int usuniete = 0;
+    for (int i = 0; i < listaUbran.size(); i++) {
+      if (listaUbran.get(i).getPoziom() == poziom && usuniete < ile) {
+        usuniete++;
+        listaUbran.remove(i);
+      }
+    }
+    ubrania -= ile;
 
-    sb.append("\t\t programy: ").append(this.programy).append("\n");
-    sb.append("\t\t narzedzia: ").append(this.narzedzia).append("\n");
-    sb.append("\t\t jedzenie: ").append(this.jedzenie).append("\n");
-    sb.append("\t\t diamenty: ").append(this.diamenty).append("\n");
-    sb.append("\t\t ubrania: ").append(this.ubrania).append("\n");
-
-    return sb.toString();
+    if (ubrania < 0) {
+      ubrania = 0;
+      listaUbran = new ArrayList<>();
+    }
   }
 
   public void odejmijDiamenty(double i) {
@@ -193,5 +212,37 @@ public class Zasoby {
       default:
         break;
     }
+  }
+
+  public void odejmijZasob(Przedmiot przedmiot, int ile, int poziom) {
+    switch (przedmiot) {
+      case JEDZENIE:
+        this.jedzenie -= ile;
+        break;
+      case NARZEDZIA:
+        usunNarzedzia(ile, poziom);
+        break;
+      case UBRANIA:
+        usunUbrania(ile, poziom);
+        break;
+      case PROGRAMY:
+        usunProgramy(ile, poziom);
+        break;
+      default:
+        break;
+    }
+  }
+
+  @Override
+  public String toString() {
+    var sb = new StringBuilder();
+
+    sb.append("\t\t programy: ").append(this.programy).append("\n");
+    sb.append("\t\t narzedzia: ").append(this.narzedzia).append("\n");
+    sb.append("\t\t jedzenie: ").append(this.jedzenie).append("\n");
+    sb.append("\t\t diamenty: ").append(this.diamenty).append("\n");
+    sb.append("\t\t ubrania: ").append(this.ubrania).append("\n");
+
+    return sb.toString();
   }
 }

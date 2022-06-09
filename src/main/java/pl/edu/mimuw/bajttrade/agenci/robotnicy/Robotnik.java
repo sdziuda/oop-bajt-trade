@@ -75,7 +75,8 @@ public abstract class Robotnik extends Agent {
   }
 
   public void rozegrajKoniecDnia() {
-    zasoby.usunNarzedzia();
+    //serio robotnik ma stracić na koniec dnia wszystkie narzędzia, nawet te co dopiero kupił xd (tak wynika z treści)
+    zasoby.usunWszystkieNarzedzia();
     if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) <= 0) {
       ileNieJadl++;
     } else {

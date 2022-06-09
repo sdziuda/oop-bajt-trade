@@ -20,6 +20,10 @@ public abstract class Agent {
     return this.zasoby.getIloscZasobow(p);
   }
 
+  public double getDiamenty() {
+    return this.zasoby.getDiamenty();
+  }
+
   public void odejmijDiamenty(double i) {
     this.zasoby.odejmijDiamenty(i);
   }
@@ -32,7 +36,7 @@ public abstract class Agent {
     this.zasoby.dodajZasob(przedmiot, ile, poziom);
   }
 
-  public double getDiamenty() {
-    return this.zasoby.getDiamenty();
+  public void odejmijZasob(Przedmiot przedmiot, int ile, int poziom) {
+    this.zasoby.odejmijZasob(przedmiot, ile, poziom);
   }
 }

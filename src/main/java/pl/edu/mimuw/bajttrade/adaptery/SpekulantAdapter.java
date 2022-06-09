@@ -17,7 +17,7 @@ public class SpekulantAdapter {
         return new Sredni(spekulant.id, spekulant.zasoby, spekulant.historia_spekulanta_sredniego);
       case "wypukly":
         return new Wypukly(spekulant.id, spekulant.zasoby);
-      case "regulujacy":
+      case "regulujacy_rynek":
         return new RegulujacyRynek(spekulant.id, spekulant.zasoby);
       default:
         throw new RuntimeException();

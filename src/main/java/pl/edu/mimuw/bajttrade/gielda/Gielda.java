@@ -15,8 +15,8 @@ public class Gielda {
   private final Info info;
   private final Robotnik[] robotnicy;
   private final Spekulant[] spekulanci;
-  private int dzien;
   private final Historia historia;
+  private int dzien;
 
   public Gielda(Info info, Robotnik[] robotnicy, Spekulant[] spekulanci) {
     this.info = info;
@@ -24,15 +24,6 @@ public class Gielda {
     this.spekulanci = spekulanci;
     this.dzien = 1;
     this.historia = new Historia();
-  }
-
-  private static List<OfertaSpekulanta> kolejnoscOfertSpekulanta(List<OfertaSpekulanta> oferty) {
-    Comparator<OfertaSpekulanta> comparator = Comparator.comparingInt(
-      (OfertaSpekulanta o) -> o.getPrzedmiot().ordinal()
-    ).thenComparing((o1, o2) -> o2.getPoziom() - o1.getPoziom()
-    ).thenComparing((o1, o2) -> Double.compare(o2.getCena(), o1.getCena()));
-
-    return oferty.stream().sorted(comparator).collect(Collectors.toList());
   }
 
   public void symuluj() {
@@ -68,6 +59,7 @@ public class Gielda {
       //System.out.println("Historia:\n" + historia);
 
       dopasujOfertySprzedazyRobotnikow(ofertySprzedazyRobotnikow, ofertyKupnaSpekulantow);
+      dopasujOfertyKupnaRobotnikow(ofertyKupnaRobotnikow, ofertySprzedazySpekulantow);
 
       for (var r : robotnicyPracujacy) {
         r.rozegrajKoniecDnia();
@@ -91,15 +83,18 @@ public class Gielda {
   }
 
   private void dopasujOfertySprzedazyRobotnikow(List<Oferta> ofertyRobotnikow, List<OfertaSpekulanta> ofertySpekulantow) {
-    for (var o : ofertyRobotnikow) {
-      dopasuj(o, ofertySpekulantow);
-      if (o.getIlosc() == 0) {
-        ofertyRobotnikow.remove(o);
-      }
+    int i = 0;
+    while (i < ofertyRobotnikow.size()) {
+      var o = ofertyRobotnikow.get(i);
+
+      dopasujSprzedaz(o, ofertySpekulantow);
+      if (o.getIlosc() == 0) ofertyRobotnikow.remove(o);
+
+      i++;
     }
   }
 
-  private void dopasuj(Oferta o, List<OfertaSpekulanta> ofertySpekulantow) {
+  private void dopasujSprzedaz(Oferta o, List<OfertaSpekulanta> ofertySpekulantow) {
     for (int i = 0; i < ofertySpekulantow.size(); i++) {
       var ofertaSpekulanta = ofertySpekulantow.get(i);
       if (o.getPrzedmiot() == ofertaSpekulanta.getPrzedmiot() && o.getPoziom() == ofertaSpekulanta.getPoziom()) {
@@ -121,5 +116,51 @@ public class Gielda {
         if (ofertaSpekulanta.getIlosc() == 0) ofertySpekulantow.remove(i);
       }
     }
+  }
+
+  private void dopasujOfertyKupnaRobotnikow(List<Oferta> ofertyRobotnikow, List<OfertaSpekulanta> ofertySpekulantow) {
+    int i = 0;
+    while (i < ofertyRobotnikow.size()) {
+      var o = ofertyRobotnikow.get(i);
+
+      dopasujKupno(o, ofertySpekulantow);
+      if (o.getIlosc() == 0) ofertyRobotnikow.remove(o);
+
+      i++;
+    }
+  }
+
+  private void dopasujKupno(Oferta o, List<OfertaSpekulanta> ofertySpekulantow) {
+    for (int i = 0; i < ofertySpekulantow.size(); i++) {
+      var ofertaSpekulanta = ofertySpekulantow.get(i);
+      if (o.getPrzedmiot() == ofertaSpekulanta.getPrzedmiot() && o.getPoziom() == ofertaSpekulanta.getPoziom()) {
+        int mozeKupic = (int) Math.floor(o.getWlasciciel().getDiamenty() / ofertaSpekulanta.getCena());
+
+        if (mozeKupic > 0) {
+          if (mozeKupic > ofertaSpekulanta.getIlosc()) mozeKupic = ofertaSpekulanta.getIlosc();
+          if (mozeKupic > o.getIlosc()) mozeKupic = o.getIlosc();
+
+          o.odejmij(mozeKupic);
+          ofertaSpekulanta.odejmij(mozeKupic);
+          o.getWlasciciel().odejmijDiamenty(mozeKupic * ofertaSpekulanta.getCena());
+          ofertaSpekulanta.getWlasciciel().dodajDiamenty(mozeKupic * ofertaSpekulanta.getCena());
+          o.getWlasciciel().dodajZasob(o.getPrzedmiot(), mozeKupic, o.getPoziom());
+          ofertaSpekulanta.getWlasciciel().odejmijZasob(o.getPrzedmiot(), mozeKupic, o.getPoziom());
+          historia.dodajZfinalizowana(new Rachunek(dzien, mozeKupic, ofertaSpekulanta.getCena(), o.getPrzedmiot()));
+        }
+
+        if (o.getIlosc() == 0) return;
+        if (ofertaSpekulanta.getIlosc() == 0) ofertySpekulantow.remove(i);
+      }
+    }
+  }
+
+  private static List<OfertaSpekulanta> kolejnoscOfertSpekulanta(List<OfertaSpekulanta> oferty) {
+    Comparator<OfertaSpekulanta> comparator = Comparator.comparingInt(
+      (OfertaSpekulanta o) -> o.getPrzedmiot().ordinal()
+    ).thenComparing((o1, o2) -> o2.getPoziom() - o1.getPoziom()
+    ).thenComparing((o1, o2) -> Double.compare(o2.getCena(), o1.getCena()));
+
+    return oferty.stream().sorted(comparator).collect(Collectors.toList());
   }
 }
