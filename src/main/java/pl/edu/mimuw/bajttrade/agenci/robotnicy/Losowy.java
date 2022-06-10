@@ -25,6 +25,6 @@ public class Losowy extends Robotnik {
 
   @Override
   public String toString() {
-    return super.toString() + "\t produkcja: losowy\n";
+    return "losowy";
   }
 }

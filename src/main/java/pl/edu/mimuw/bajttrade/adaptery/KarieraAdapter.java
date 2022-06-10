@@ -24,7 +24,7 @@ public class KarieraAdapter {
       case "rzemieslnik":
         return new Rzemieslnik();
       default:
-        throw new RuntimeException();
+        throw new RuntimeException("Nieznany typ kariery: " + kariera);
     }
   }
 }

@@ -25,7 +25,7 @@ public class Sredniak extends Robotnik {
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      double sredniaCena = h.getSredniaCenaOstatnichDni(this.historiaSredniejProdukcji, dzien, info, p);
+      double sredniaCena = h.getSredniaCenaKilkuDni(this.historiaSredniejProdukcji, dzien, info, p);
       if (sredniaCena > maksimum) {
         maksimum = sredniaCena;
         wynik = p;
@@ -36,7 +36,12 @@ public class Sredniak extends Robotnik {
   }
 
   @Override
+  public int getHistoriaSredniejProdukcji() {
+    return this.historiaSredniejProdukcji;
+  }
+
+  @Override
   public String toString() {
-    return super.toString() + "\t produkcja: sredniak\n";
+    return "sredniak";
   }
 }

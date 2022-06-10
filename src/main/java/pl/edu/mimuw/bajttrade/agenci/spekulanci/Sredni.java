@@ -2,7 +2,6 @@ package pl.edu.mimuw.bajttrade.agenci.spekulanci;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
-import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.oferty.OfertaSpekulanta;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
@@ -20,16 +19,16 @@ public class Sredni extends Spekulant {
 
   @Override
   public List<OfertaSpekulanta> coKupuje(Historia h, Info info, int dzien) {
-    double cenaProgramow = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.PROGRAMY);
+    double cenaProgramow = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.PROGRAMY);
     if (this.zasoby.getIloscZasobow(Przedmiot.PROGRAMY) > 0) cenaProgramow *= 0.9;
     else cenaProgramow *= 0.95;
-    double cenaNarzedzi = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.NARZEDZIA);
+    double cenaNarzedzi = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.NARZEDZIA);
     if (this.zasoby.getIloscZasobow(Przedmiot.NARZEDZIA) > 0) cenaNarzedzi *= 0.9;
     else cenaNarzedzi *= 0.95;
-    double cenaUbran = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.UBRANIA);
+    double cenaUbran = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.UBRANIA);
     if (this.zasoby.getIloscZasobow(Przedmiot.UBRANIA) > 0) cenaUbran *= 0.9;
     else cenaUbran *= 0.95;
-    double cenaJedzenia = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.JEDZENIE);
+    double cenaJedzenia = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.JEDZENIE);
     if (this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE) > 0) cenaJedzenia *= 0.9;
     else cenaJedzenia *= 0.95;
 
@@ -51,12 +50,12 @@ public class Sredni extends Spekulant {
 
   @Override
   public List<OfertaSpekulanta> coSprzedaje(Historia h, Info info, int dzien) {
-    double cenaProgramow = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.PROGRAMY)
+    double cenaProgramow = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.PROGRAMY)
       * 1.1;
-    double cenaNarzedzi = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.NARZEDZIA)
+    double cenaNarzedzi = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.NARZEDZIA)
       * 1.1;
-    double cenaUbran = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.UBRANIA) * 1.1;
-    double cenaJedzenia = h.getSredniaCenaOstatnichDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.JEDZENIE)
+    double cenaUbran = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.UBRANIA) * 1.1;
+    double cenaJedzenia = h.getSredniaCenaKilkuDni(historiaSpekulantaSredniego, dzien, info, Przedmiot.JEDZENIE)
       * 1.1;
 
     List<OfertaSpekulanta> wynik = new ArrayList<>();
@@ -92,13 +91,12 @@ public class Sredni extends Spekulant {
   }
 
   @Override
+  public int getHistoriaSpekulantaSredniego() {
+    return historiaSpekulantaSredniego;
+  }
+
+  @Override
   public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append(super.toString()).append("\n");
-    sb.append("\t kariera: sredni\n");
-    sb.append("\t zasoby:\n").append(this.zasoby);
-
-    return sb.toString();
+    return "sredni";
   }
 }

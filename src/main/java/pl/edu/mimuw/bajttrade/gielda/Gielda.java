@@ -1,11 +1,16 @@
 package pl.edu.mimuw.bajttrade.gielda;
 
+import com.squareup.moshi.JsonAdapter;
+import pl.edu.mimuw.bajttrade.adaptery.InfoWyjscioweJson;
 import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.agenci.robotnicy.*;
 import pl.edu.mimuw.bajttrade.agenci.spekulanci.Spekulant;
 import pl.edu.mimuw.bajttrade.oferty.OfertaSpekulanta;
 import pl.edu.mimuw.bajttrade.oferty.Rachunek;
+import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -26,10 +31,22 @@ public class Gielda {
     this.historia = new Historia();
   }
 
-  public void symuluj() {
-    while (dzien <= info.getDlugosc()) {
-      System.out.println(this);
+  public Info getInfo() {
+    return this.info;
+  }
 
+  public Robotnik[] getRobotnicy() {
+    return this.robotnicy;
+  }
+
+  public Spekulant[] getSpekulanci() {
+    return this.spekulanci;
+  }
+
+  public void symuluj(JsonAdapter<Gielda> adapter) throws Exception {
+    BufferedWriter bw = new BufferedWriter(new FileWriter("wyjscie.json"));
+
+    while (dzien <= info.getDlugosc()) {
       List<Robotnik> robotnicyPracujacy = new ArrayList<>();
       List<Oferta> ofertySprzedazyRobotnikow = new ArrayList<>();
       List<Oferta> ofertyKupnaRobotnikow = new ArrayList<>();
@@ -52,34 +69,36 @@ public class Gielda {
       ofertySprzedazySpekulantow = kolejnoscOfertSpekulanta(ofertySprzedazySpekulantow);
       ofertyKupnaSpekulantow = kolejnoscOfertSpekulanta(ofertyKupnaSpekulantow);
 
-      System.out.println("Oferty sprzedazy robotnikow: " + ofertySprzedazyRobotnikow);
-      System.out.println("Oferty kupna robotnikow: " + ofertyKupnaRobotnikow);
-      System.out.println("Oferty sprzedazy spekulantow: " + ofertySprzedazySpekulantow);
-      System.out.println("Oferty kupna spekulantow: " + ofertyKupnaSpekulantow);
-      //System.out.println("Historia:\n" + historia);
-
       dopasujOfertySprzedazyRobotnikow(ofertySprzedazyRobotnikow, ofertyKupnaSpekulantow);
       dopasujOfertyKupnaRobotnikow(ofertyKupnaRobotnikow, ofertySprzedazySpekulantow);
+      skupOfertRobotnika(ofertySprzedazyRobotnikow);
 
       for (var r : robotnicyPracujacy) {
         r.rozegrajKoniecDnia();
       }
 
+      bw.append(adapter.indent("  ").toJson(this)).append(dzien == info.getDlugosc() ? "" : ",\n");
       dzien++;
     }
+
+    bw.close();
   }
 
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
+  public InfoWyjscioweJson generujInfoWyjsciowe() {
+    Ceny cenySrednie = new Ceny(historia.getSredniaCenaDanegoDnia(dzien, info , Przedmiot.PROGRAMY),
+      historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.JEDZENIE),
+      historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.UBRANIA),
+      historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.NARZEDZIA));
+    Ceny cenyMax = new Ceny(historia.getNajwyzszaCena(dzien, info, Przedmiot.PROGRAMY),
+      historia.getNajwyzszaCena(dzien, info, Przedmiot.JEDZENIE),
+      historia.getNajwyzszaCena(dzien, info, Przedmiot.UBRANIA),
+      historia.getNajwyzszaCena(dzien, info, Przedmiot.NARZEDZIA));
+    Ceny cenyMin = new Ceny(historia.getNajnizszaCena(dzien, info, Przedmiot.PROGRAMY),
+      historia.getNajnizszaCena(dzien, info, Przedmiot.JEDZENIE),
+      historia.getNajnizszaCena(dzien, info, Przedmiot.UBRANIA),
+      historia.getNajnizszaCena(dzien, info, Przedmiot.NARZEDZIA));
 
-    sb.append(info.toString()).append("robotnicy:\n");
-    for (var r : robotnicy) sb.append(r.toString());
-    sb.append("\nspekulanci:\n");
-    for (var s : spekulanci) sb.append(s.toString());
-
-
-    return sb.toString();
+    return new InfoWyjscioweJson(dzien, cenySrednie, cenyMax, cenyMin);
   }
 
   private void dopasujOfertySprzedazyRobotnikow(List<Oferta> ofertyRobotnikow, List<OfertaSpekulanta> ofertySpekulantow) {
@@ -152,6 +171,20 @@ public class Gielda {
         if (o.getIlosc() == 0) return;
         if (ofertaSpekulanta.getIlosc() == 0) ofertySpekulantow.remove(i);
       }
+    }
+  }
+
+  private void skupOfertRobotnika (List<Oferta> ofertyRobotnikow) {
+    int i = 0;
+    while (i < ofertyRobotnikow.size()) {
+      var o = ofertyRobotnikow.get(i);
+      var cena = this.historia.getNajnizszaCena(dzien - 1, info, o.getPrzedmiot());
+
+      o.getWlasciciel().dodajDiamenty(cena * o.getIlosc());
+      this.historia.dodajZfinalizowana(new Rachunek(dzien, o.getIlosc(), cena, o.getPrzedmiot()));
+      ofertyRobotnikow.remove(o);
+
+      i++;
     }
   }
 

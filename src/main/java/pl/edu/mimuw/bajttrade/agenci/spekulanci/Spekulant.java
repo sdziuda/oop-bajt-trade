@@ -18,6 +18,10 @@ public abstract class Spekulant extends Agent {
 
   public abstract List<OfertaSpekulanta> coSprzedaje(Historia h, Info info, int dzien);
 
+  public int getHistoriaSpekulantaSredniego() {
+    return 0;
+  }
+
   @Override
   public String toString() {
     return "\t id: " + this.id;

@@ -6,8 +6,8 @@ import pl.edu.mimuw.bajttrade.kupowanie.*;
 
 public class KupowanieAdapter {
   @ToJson
-  public String toJson(Kupowanie kupowanie) {
-    return kupowanie.toString();
+  public KupowanieJson kupowanieToJson(Kupowanie kupowanie) {
+    return new KupowanieJson(kupowanie.toString(), kupowanie.getLiczbaNarzedzi());
   }
 
   @FromJson

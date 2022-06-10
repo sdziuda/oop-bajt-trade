@@ -17,6 +17,11 @@ public class Okresowy implements Uczenie {
   }
 
   @Override
+  public int getOkresowoscNauki() {
+    return okresowoscNauki;
+  }
+
+  @Override
   public String toString() {
     return "okresowy";
   }

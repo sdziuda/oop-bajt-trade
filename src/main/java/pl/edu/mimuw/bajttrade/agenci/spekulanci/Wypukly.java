@@ -21,9 +21,9 @@ public class Wypukly extends Spekulant {
 
     for (var p : Przedmiot.values()) {
       if (p == Przedmiot.DIAMENTY) continue;
-      double cena3DniTemu = h.getSredniaCenaOstatnichDni(1, dzien - 2, info, p);
-      double cena2DniTemu = h.getSredniaCenaOstatnichDni(1, dzien - 1, info, p);
-      double cenaDzienTemu = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
+      double cena3DniTemu = h.getSredniaCenaDanegoDnia(dzien - 3, info, p);
+      double cena2DniTemu = h.getSredniaCenaDanegoDnia(dzien - 2, info, p);
+      double cenaDzienTemu = h.getSredniaCenaDanegoDnia(dzien - 1, info, p);
       if (cena2DniTemu <= cenaDzienTemu && cena2DniTemu <= cena3DniTemu) {
         double cenaFaktyczna = cenaDzienTemu * 0.9;
         if (p == Przedmiot.JEDZENIE) {
@@ -48,9 +48,9 @@ public class Wypukly extends Spekulant {
 
     for (var p : Przedmiot.values()) {
       if (p == Przedmiot.DIAMENTY) continue;
-      double cena3DniTemu = h.getSredniaCenaOstatnichDni(1, dzien - 2, info, p);
-      double cena2DniTemu = h.getSredniaCenaOstatnichDni(1, dzien - 1, info, p);
-      double cenaDzienTemu = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
+      double cena3DniTemu = h.getSredniaCenaDanegoDnia(dzien - 3, info, p);
+      double cena2DniTemu = h.getSredniaCenaDanegoDnia(dzien - 2, info, p);
+      double cenaDzienTemu = h.getSredniaCenaDanegoDnia(dzien - 1, info, p);
       if (cena2DniTemu >= cenaDzienTemu && cena2DniTemu >= cena3DniTemu) {
         double cenaFaktyczna = cenaDzienTemu * 1.1;
         if (p == Przedmiot.JEDZENIE && this.zasoby.getIloscZasobow(p) > 0) {
@@ -76,12 +76,6 @@ public class Wypukly extends Spekulant {
 
   @Override
   public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append(super.toString()).append("\n");
-    sb.append("\t kariera: wypukly\n");
-    sb.append("\t zasoby:\n").append(this.zasoby);
-
-    return sb.toString();
+    return "wypukly";
   }
 }

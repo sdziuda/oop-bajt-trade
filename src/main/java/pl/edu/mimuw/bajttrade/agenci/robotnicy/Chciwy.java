@@ -12,7 +12,7 @@ import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
 public class Chciwy extends Robotnik {
   public Chciwy(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                   Produktywnosc produktywnosc, Zasoby zasoby) {
+                Produktywnosc produktywnosc, Zasoby zasoby) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
   }
 
@@ -22,7 +22,7 @@ public class Chciwy extends Robotnik {
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      double sredniaCena = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
+      double sredniaCena = h.getSredniaCenaDanegoDnia(dzien - 1, info, p);
       double zysk = sredniaCena * this.getProduktywnosc(p);
       if (zysk > maksimum) {
         maksimum = zysk;
@@ -35,6 +35,6 @@ public class Chciwy extends Robotnik {
 
   @Override
   public String toString() {
-    return super.toString() + "\t produkcja: chciwy\n";
+    return "chciwy";
   }
 }

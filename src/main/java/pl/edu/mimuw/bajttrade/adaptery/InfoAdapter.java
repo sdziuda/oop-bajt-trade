@@ -7,8 +7,8 @@ import pl.edu.mimuw.bajttrade.gieldatyp.*;
 
 public class InfoAdapter {
   @ToJson
-  public String toJson(Info info) {
-    return info.toString();
+  public InfoJson toJson(Info info) {
+    return new InfoJson(info.getDlugosc(), info.getTypGieldy().toString(), info.getKaraZaBrakUbran(), info.getCeny());
   }
 
   @FromJson

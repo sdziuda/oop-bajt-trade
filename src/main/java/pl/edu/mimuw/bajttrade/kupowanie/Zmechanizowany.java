@@ -29,6 +29,11 @@ public class Zmechanizowany implements Kupowanie {
   }
 
   @Override
+  public int getLiczbaNarzedzi() {
+    return liczbaNarzedzi;
+  }
+
+  @Override
   public String toString() {
     return "zmechanizowany";
   }

@@ -22,8 +22,8 @@ public class Krotkowzroczny extends Robotnik {
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      if (h.getSredniaCenaOstatnichDni(1, dzien, info, p) > maks) {
-        maks = h.getSredniaCenaOstatnichDni(1, dzien, info, p);
+      if (h.getSredniaCenaDanegoDnia(dzien - 1, info, p) > maks) {
+        maks = h.getSredniaCenaDanegoDnia(dzien - 1, info, p);
         wynik = p;
       }
     }
@@ -33,6 +33,6 @@ public class Krotkowzroczny extends Robotnik {
 
   @Override
   public String toString() {
-    return super.toString() + "\t produkcja: krotkowzroczny\n";
+    return "krotkowzroczny";
   }
 }

@@ -6,8 +6,11 @@ import pl.edu.mimuw.bajttrade.agenci.robotnicy.*;
 
 public class RobotnikAdapter {
   @ToJson
-  public String toJson(Robotnik robotnik) {
-    return robotnik.toString();
+  public RobotnikJson toJson(Robotnik robotnik) {
+    return new RobotnikJson(robotnik.getId(), robotnik.getAktywnaKariera().getPoziom(), robotnik.getAktywnaKariera(),
+      robotnik.getKupowanie(), new ProdukcjaJson(robotnik.toString(), robotnik.getHistoriaSredniejProdukcji(),
+      robotnik.getHistoriaPerspektywy()), robotnik.getUczenie(), robotnik.getZmiana(), robotnik.getCalaProduktywnosc(),
+      robotnik.getZasoby());
   }
 
   @FromJson

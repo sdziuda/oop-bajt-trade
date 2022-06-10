@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface Kupowanie {
   List<Oferta> coKupuje(Robotnik r, int dzien);
+
+  default int getLiczbaNarzedzi() {
+    return 0;
+  }
 }

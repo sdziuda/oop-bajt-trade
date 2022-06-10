@@ -13,8 +13,8 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    File file = new File("dane.json");
-    BufferedReader bf = new BufferedReader(new FileReader(file));
+    File wejscie = new File("dane.json");
+    BufferedReader bf = new BufferedReader(new FileReader(wejscie));
     String json;
     var sb = new StringBuilder();
 
@@ -38,7 +38,11 @@ public class Main {
     Gielda gielda = jsonAdapter.fromJson(json);
 
     if (gielda != null) {
-      gielda.symuluj();
+      try {
+        gielda.symuluj(jsonAdapter);
+      } catch (Exception e) {
+        System.out.println("Wystąpił błąd: " + e.getMessage());
+      }
     }
   }
 }

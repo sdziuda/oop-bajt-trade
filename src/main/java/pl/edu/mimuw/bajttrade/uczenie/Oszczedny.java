@@ -18,6 +18,11 @@ public class Oszczedny implements Uczenie {
   }
 
   @Override
+  public int getLimitDiamentow() {
+    return limitDiamentow;
+  }
+
+  @Override
   public String toString() {
     return "oszczedny";
   }

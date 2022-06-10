@@ -6,8 +6,9 @@ import pl.edu.mimuw.bajttrade.uczenie.*;
 
 public class UczenieAdapter {
   @ToJson
-  public String toJson(Uczenie uczenie) {
-    return uczenie.toString();
+  public UczenieJson uczenieToJson(Uczenie uczenie) {
+    return new UczenieJson(uczenie.toString(), uczenie.getOkresowoscNauki(), uczenie.getLimitDiamentow(),
+      uczenie.getZapas(), uczenie.getOkres());
   }
 
   @FromJson

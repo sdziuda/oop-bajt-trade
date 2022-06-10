@@ -32,6 +32,11 @@ public class Gadzeciarz implements Kupowanie {
   }
 
   @Override
+  public int getLiczbaNarzedzi() {
+    return liczbaNarzedzi;
+  }
+
+  @Override
   public String toString() {
     return "gadzeciarz";
   }

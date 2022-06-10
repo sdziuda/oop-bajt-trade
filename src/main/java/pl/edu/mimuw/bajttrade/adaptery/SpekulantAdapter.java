@@ -6,8 +6,9 @@ import pl.edu.mimuw.bajttrade.agenci.spekulanci.*;
 
 public class SpekulantAdapter {
   @ToJson
-  public String toJson(Spekulant spekulant) {
-    return spekulant.toString();
+  public SpekulantJson toJson(Spekulant spekulant) {
+    return new SpekulantJson(spekulant.getId(), spekulant.toString(), spekulant.getZasoby(),
+      spekulant.getHistoriaSpekulantaSredniego());
   }
 
   @FromJson

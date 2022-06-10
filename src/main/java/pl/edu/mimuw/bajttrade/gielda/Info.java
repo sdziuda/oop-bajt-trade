@@ -4,10 +4,10 @@ import pl.edu.mimuw.bajttrade.gieldatyp.TypGieldy;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 
 public class Info {
-  private int dlugosc;
-  private TypGieldy typGieldy;
-  private int kara_za_brak_ubran;
-  private Ceny ceny;
+  private final int dlugosc;
+  private final TypGieldy typGieldy;
+  private final int kara_za_brak_ubran;
+  private final Ceny ceny;
 
   public Info(int dlugosc, TypGieldy typGieldy, int kara_za_brak_ubran, Ceny ceny) {
     this.dlugosc = dlugosc;
@@ -32,15 +32,7 @@ public class Info {
     return this.typGieldy;
   }
 
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append("dlugosc: ").append(this.dlugosc).append("\n");
-    sb.append("gielda: ").append(this.typGieldy).append("\n");
-    sb.append("kara_za_brak_ubran: ").append(this.kara_za_brak_ubran).append("\n");
-    sb.append("ceny:\n").append(this.ceny).append("\n");
-
-    return sb.toString();
+  public Ceny getCeny() {
+    return this.ceny;
   }
 }

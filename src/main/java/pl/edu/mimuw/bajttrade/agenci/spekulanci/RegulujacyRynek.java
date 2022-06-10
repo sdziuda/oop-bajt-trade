@@ -22,16 +22,16 @@ public class RegulujacyRynek extends Spekulant {
       return Collections.emptyList();
     }
 
-    double cenaProgramow = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.PROGRAMY)
+    double cenaProgramow = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.PROGRAMY)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.PROGRAMY)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.PROGRAMY), 1) * 0.9;
-    double cenaNarzedzi = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.NARZEDZIA)
+    double cenaNarzedzi = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.NARZEDZIA)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.NARZEDZIA)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.NARZEDZIA), 1) * 0.9;
-    double cenaUbran = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.UBRANIA)
+    double cenaUbran = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.UBRANIA)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.UBRANIA)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.UBRANIA), 1) * 0.9;
-    double cenaJedzenia = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.JEDZENIE)
+    double cenaJedzenia = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.JEDZENIE)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.JEDZENIE)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.JEDZENIE), 1) * 0.9;
 
@@ -57,16 +57,16 @@ public class RegulujacyRynek extends Spekulant {
       return Collections.emptyList();
     }
 
-    double cenaProgramow = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.PROGRAMY)
+    double cenaProgramow = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.PROGRAMY)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.PROGRAMY)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.PROGRAMY), 1) * 1.1;
-    double cenaNarzedzi = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.NARZEDZIA)
+    double cenaNarzedzi = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.NARZEDZIA)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.NARZEDZIA)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.NARZEDZIA), 1) * 1.1;
-    double cenaUbran = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.UBRANIA)
+    double cenaUbran = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.UBRANIA)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.UBRANIA)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.UBRANIA), 1) * 1.1;
-    double cenaJedzenia = h.getSredniaCenaOstatnichDni(1, dzien, info, Przedmiot.JEDZENIE)
+    double cenaJedzenia = h.getSredniaCenaDanegoDnia(dzien - 1, info, Przedmiot.JEDZENIE)
       * h.getLiczbaPrzedmiotowRobotnikow(dzien, Przedmiot.JEDZENIE)
       / Math.max(h.getLiczbaPrzedmiotowRobotnikow(dzien - 1, Przedmiot.JEDZENIE), 1) * 1.1;
 
@@ -104,12 +104,6 @@ public class RegulujacyRynek extends Spekulant {
 
   @Override
   public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append(super.toString()).append("\n");
-    sb.append("\t kariera: regulujacy_rynek\n");
-    sb.append("\t zasoby:\n").append(this.zasoby);
-
-    return sb.toString();
+    return "regulujacy_rynek";
   }
 }

@@ -21,12 +21,12 @@ public class Perspektywiczny extends Robotnik {
 
   @Override
   public Przedmiot coProdukuje(Historia h, Info info, int dzien) {
-    double maksimum = 0;
+    double maksimum = Double.NEGATIVE_INFINITY;
     Przedmiot wynik = null;
 
     for (var p : Przedmiot.values()) {
-      double zmiana = h.getSredniaCenaOstatnichDni(1, dzien, info, p)
-        - h.getSredniaCenaOstatnichDni(1, dzien - historiaPerspektywy, info, p);
+      double zmiana = h.getSredniaCenaDanegoDnia(dzien - 1, info, p)
+        - h.getSredniaCenaDanegoDnia(dzien - historiaPerspektywy, info, p);
       if (zmiana > maksimum) {
         maksimum = zmiana;
         wynik = p;
@@ -37,7 +37,12 @@ public class Perspektywiczny extends Robotnik {
   }
 
   @Override
+  public int getHistoriaPerspektywy() {
+    return historiaPerspektywy;
+  }
+
+  @Override
   public String toString() {
-    return super.toString() + "\t produkcja: perspektywiczny\n";
+    return "perspektywiczny";
   }
 }

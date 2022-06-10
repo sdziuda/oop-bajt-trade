@@ -39,4 +39,8 @@ public abstract class Agent {
   public void odejmijZasob(Przedmiot przedmiot, int ile, int poziom) {
     this.zasoby.odejmijZasob(przedmiot, ile, poziom);
   }
+
+  public Zasoby getZasoby() {
+    return this.zasoby;
+  }
 }

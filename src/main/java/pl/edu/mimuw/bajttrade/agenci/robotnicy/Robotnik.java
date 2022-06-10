@@ -1,5 +1,7 @@
 package pl.edu.mimuw.bajttrade.agenci.robotnicy;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.ToJson;
 import pl.edu.mimuw.bajttrade.agenci.Agent;
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
@@ -49,6 +51,30 @@ public abstract class Robotnik extends Agent {
     return this.kariera;
   }
 
+  public Kupowanie getKupowanie() {
+    return this.kupowanie;
+  }
+
+  public Uczenie getUczenie() {
+    return this.uczenie;
+  }
+
+  public Zmiana getZmiana() {
+    return this.zmiana;
+  }
+
+  public Produktywnosc getCalaProduktywnosc() {
+    return this.produktywnosc;
+  }
+
+  public int getHistoriaSredniejProdukcji() {
+    return 0;
+  }
+
+  public int getHistoriaPerspektywy() {
+    return 0;
+  }
+
   public int getProduktywnosc(Przedmiot p) {
     return this.produktywnosc.getProduktywnosc(p);
   }
@@ -75,7 +101,7 @@ public abstract class Robotnik extends Agent {
   }
 
   public void rozegrajKoniecDnia() {
-    //serio robotnik ma stracić na koniec dnia wszystkie narzędzia, nawet te co dopiero kupił xd (tak wynika z treści)
+    //serio robotnik ma stracić na koniec dnia wszystkie narzędzia, nawet te, co dopiero kupił xd (tak wynika z treści)
     zasoby.usunWszystkieNarzedzia();
     if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) <= 0) {
       ileNieJadl++;
@@ -93,7 +119,7 @@ public abstract class Robotnik extends Agent {
 
   public abstract Przedmiot coProdukuje(Historia h, Info info, int dzien);
 
-  @Override
+  /*@Override
   public String toString() {
     var sb = new StringBuilder();
 
@@ -107,7 +133,7 @@ public abstract class Robotnik extends Agent {
     sb.append("\t zasoby:\n").append(this.zasoby);
 
     return sb.toString();
-  }
+  }*/
 
   private void uczySie(Historia h, int dzien) {
     if (ileNieJadl == 1) {

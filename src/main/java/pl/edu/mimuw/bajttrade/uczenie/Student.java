@@ -16,7 +16,17 @@ public class Student implements Uczenie {
 
   @Override
   public boolean czySieUczy(Robotnik r, Historia h, Info info, int dzien) {
-    return r.getDiamenty() >= 100 * zapas * h.getSredniaCenaOstatnichDni(okres, dzien, info, Przedmiot.JEDZENIE);
+    return r.getDiamenty() >= 100 * zapas * h.getSredniaCenaKilkuDni(okres, dzien, info, Przedmiot.JEDZENIE);
+  }
+
+  @Override
+  public int getOkres() {
+    return okres;
+  }
+
+  @Override
+  public int getZapas() {
+    return zapas;
   }
 
   @Override

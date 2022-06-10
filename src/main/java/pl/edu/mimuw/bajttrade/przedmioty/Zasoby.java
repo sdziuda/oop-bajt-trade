@@ -70,6 +70,22 @@ public class Zasoby {
     return maks;
   }
 
+  public int getNajwyzszyPoziomNarzedzia() {
+    int maks = 0;
+    for (var n : listaNarzedzi) {
+      if (n.getPoziom() > maks) maks = n.getPoziom();
+    }
+    return maks;
+  }
+
+  public int getNajwyzszyPoziomUbrania() {
+    int maks = 0;
+    for (var u : listaUbran) {
+      if (u.getPoziom() > maks) maks = u.getPoziom();
+    }
+    return maks;
+  }
+
   public int iloscProgramowDanegoPoziomu(int poziom) {
     int wynik = 0;
     for (var p : listaProgramow) {
