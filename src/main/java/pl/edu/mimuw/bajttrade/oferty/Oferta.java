@@ -5,10 +5,10 @@ import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 
 public abstract class Oferta {
   private final int dzien;
-  private int ilosc;
   private final int poziom;
   private final Przedmiot przedmiot;
   private final Agent wlasciciel;
+  private int ilosc;
 
   protected Oferta(int dzien, int ilosc, int poziom, Przedmiot przedmiot, Agent wlasciciel) {
     this.dzien = dzien;
@@ -36,16 +36,6 @@ public abstract class Oferta {
 
   public Agent getWlasciciel() {
     return wlasciciel;
-  }
-
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append("dzien: ").append(dzien).append(" ilosc: ").append(ilosc).append(" poziom: ").append(poziom)
-      .append(" przedmiot: ").append(przedmiot).append(" wlasciciel: ").append(wlasciciel.getId());
-
-    return sb.toString();
   }
 
   public void odejmij(double ile) {

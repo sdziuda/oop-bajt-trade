@@ -4,7 +4,7 @@ import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import pl.edu.mimuw.bajttrade.agenci.spekulanci.Spekulant;
 
 public class OfertaSpekulanta extends Oferta {
-  private double cena;
+  private final double cena;
 
   public OfertaSpekulanta(int dzien, int ilosc, int poziom, Przedmiot przedmiot, double cena, Spekulant wlasciciel) {
     super(dzien, ilosc, poziom, przedmiot, wlasciciel);

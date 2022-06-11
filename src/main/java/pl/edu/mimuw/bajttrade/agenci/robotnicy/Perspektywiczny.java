@@ -11,7 +11,7 @@ import pl.edu.mimuw.bajttrade.uczenie.Uczenie;
 import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
 public class Perspektywiczny extends Robotnik {
-  private int historiaPerspektywy;
+  private final int historiaPerspektywy;
 
   public Perspektywiczny(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
                          Produktywnosc produktywnosc, Zasoby zasoby, int historiaPerspektywy) {

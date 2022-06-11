@@ -85,7 +85,7 @@ public class Gielda {
   }
 
   public InfoWyjscioweJson generujInfoWyjsciowe() {
-    Ceny cenySrednie = new Ceny(historia.getSredniaCenaDanegoDnia(dzien, info , Przedmiot.PROGRAMY),
+    Ceny cenySrednie = new Ceny(historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.PROGRAMY),
       historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.JEDZENIE),
       historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.UBRANIA),
       historia.getSredniaCenaDanegoDnia(dzien, info, Przedmiot.NARZEDZIA));
@@ -174,7 +174,7 @@ public class Gielda {
     }
   }
 
-  private void skupOfertRobotnika (List<Oferta> ofertyRobotnikow) {
+  private void skupOfertRobotnika(List<Oferta> ofertyRobotnikow) {
     int i = 0;
     while (i < ofertyRobotnikow.size()) {
       var o = ofertyRobotnikow.get(i);

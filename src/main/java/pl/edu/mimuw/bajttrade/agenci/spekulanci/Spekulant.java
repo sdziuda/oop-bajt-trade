@@ -3,7 +3,6 @@ package pl.edu.mimuw.bajttrade.agenci.spekulanci;
 import pl.edu.mimuw.bajttrade.agenci.Agent;
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
-import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.oferty.OfertaSpekulanta;
 import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
 

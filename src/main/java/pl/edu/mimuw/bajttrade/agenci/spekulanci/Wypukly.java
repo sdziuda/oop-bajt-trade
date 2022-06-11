@@ -24,6 +24,7 @@ public class Wypukly extends Spekulant {
       double cena3DniTemu = h.getSredniaCenaDanegoDnia(dzien - 3, info, p);
       double cena2DniTemu = h.getSredniaCenaDanegoDnia(dzien - 2, info, p);
       double cenaDzienTemu = h.getSredniaCenaDanegoDnia(dzien - 1, info, p);
+
       if (cena2DniTemu <= cenaDzienTemu && cena2DniTemu <= cena3DniTemu) {
         double cenaFaktyczna = cenaDzienTemu * 0.9;
         if (p == Przedmiot.JEDZENIE) {
@@ -51,6 +52,7 @@ public class Wypukly extends Spekulant {
       double cena3DniTemu = h.getSredniaCenaDanegoDnia(dzien - 3, info, p);
       double cena2DniTemu = h.getSredniaCenaDanegoDnia(dzien - 2, info, p);
       double cenaDzienTemu = h.getSredniaCenaDanegoDnia(dzien - 1, info, p);
+
       if (cena2DniTemu >= cenaDzienTemu && cena2DniTemu >= cena3DniTemu) {
         double cenaFaktyczna = cenaDzienTemu * 1.1;
         if (p == Przedmiot.JEDZENIE && this.zasoby.getIloscZasobow(p) > 0) {

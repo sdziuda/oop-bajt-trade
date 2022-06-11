@@ -1,7 +1,6 @@
 package pl.edu.mimuw.bajttrade.gieldatyp;
 
 import pl.edu.mimuw.bajttrade.oferty.Oferta;
-import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 
 import java.util.Comparator;
 import java.util.List;

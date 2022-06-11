@@ -2,7 +2,6 @@ package pl.edu.mimuw.bajttrade.agenci.spekulanci;
 
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
-import pl.edu.mimuw.bajttrade.oferty.Oferta;
 import pl.edu.mimuw.bajttrade.oferty.OfertaSpekulanta;
 import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import pl.edu.mimuw.bajttrade.przedmioty.Zasoby;
@@ -81,22 +80,22 @@ public class RegulujacyRynek extends Spekulant {
       }
       if (this.zasoby.iloscProgramowDanegoPoziomu(i) > 0) {
         wynik.add(new OfertaSpekulanta(dzien, this.zasoby.iloscProgramowDanegoPoziomu(i), i, Przedmiot.PROGRAMY,
-          cenaNarzedzi, this));
+          cenaProgramow, this));
         h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.iloscProgramowDanegoPoziomu(i), i,
-          Przedmiot.PROGRAMY, cenaNarzedzi, this));
+          Przedmiot.PROGRAMY, cenaProgramow, this));
       }
       if (this.zasoby.iloscUbranDanegoPoziomu(i) > 0) {
         wynik.add(new OfertaSpekulanta(dzien, this.zasoby.iloscUbranDanegoPoziomu(i), i, Przedmiot.UBRANIA,
-          cenaNarzedzi, this));
+          cenaUbran, this));
         h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.iloscUbranDanegoPoziomu(i), i,
-          Przedmiot.UBRANIA, cenaNarzedzi, this));
+          Przedmiot.UBRANIA, cenaUbran, this));
       }
     }
-    if (this.zasoby.getIloscZasobow(Przedmiot.UBRANIA) > 0) {
-      wynik.add(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA,
-        cenaUbran, this));
-      h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.UBRANIA), 1,
-        Przedmiot.UBRANIA, cenaUbran, this));
+    if (this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE) > 0) {
+      wynik.add(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE), 1, Przedmiot.JEDZENIE,
+        cenaJedzenia, this));
+      h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE), 1,
+        Przedmiot.JEDZENIE, cenaJedzenia, this));
     }
 
     return wynik;

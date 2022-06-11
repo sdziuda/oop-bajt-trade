@@ -21,7 +21,7 @@ public class InfoAdapter {
       case "zrownowazona":
         return new Info(info.dlugosc, new Zrownowazona(), info.kara_za_brak_ubran, info.ceny);
       default:
-        throw new RuntimeException();
+        throw new RuntimeException("Nieznana giełda: " + info.gielda);
     }
   }
 }

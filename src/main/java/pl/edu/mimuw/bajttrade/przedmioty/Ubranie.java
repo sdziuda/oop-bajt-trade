@@ -1,8 +1,8 @@
 package pl.edu.mimuw.bajttrade.przedmioty;
 
 public class Ubranie {
-  private int zuzycie;
   private final int poziom;
+  private int zuzycie;
 
   public Ubranie(int zuzycie, int poziom) {
     this.zuzycie = zuzycie;

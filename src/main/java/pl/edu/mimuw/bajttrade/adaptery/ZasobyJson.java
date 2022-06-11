@@ -1,7 +1,5 @@
 package pl.edu.mimuw.bajttrade.adaptery;
 
-import com.squareup.moshi.ToJson;
-
 public class ZasobyJson {
   public double diamenty;
   public int ubrania;

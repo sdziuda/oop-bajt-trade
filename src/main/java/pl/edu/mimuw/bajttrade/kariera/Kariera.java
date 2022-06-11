@@ -5,8 +5,8 @@ import pl.edu.mimuw.bajttrade.przedmioty.Przedmiot;
 import java.util.List;
 
 public abstract class Kariera {
-  private int poziom;
   private final Przedmiot premiowanyPrzedmiot;
+  private int poziom;
 
   protected Kariera(Przedmiot premiowanyPrzedmiot) {
     this.poziom = 1;

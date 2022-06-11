@@ -32,7 +32,7 @@ public class RobotnikAdapter {
         return new Sredniak(robotnik.id, robotnik.poziom, robotnik.kariera, robotnik.kupowanie, robotnik.uczenie,
           robotnik.zmiana, robotnik.produktywnosc, robotnik.zasoby, robotnik.produkcja.historia_sredniej_produkcji);
       default:
-        throw new RuntimeException();
+        throw new RuntimeException("Nieznany typ robotnika");
     }
   }
 }

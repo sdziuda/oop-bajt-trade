@@ -13,8 +13,8 @@ import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 import java.util.Random;
 
 public class Losowy extends Robotnik {
-  public Losowy (int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                        Produktywnosc produktywnosc, Zasoby zasoby) {
+  public Losowy(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
+                Produktywnosc produktywnosc, Zasoby zasoby) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
   }
 

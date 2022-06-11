@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sredni extends Spekulant {
-  private int historiaSpekulantaSredniego;
+  private final int historiaSpekulantaSredniego;
 
   public Sredni(int id, Zasoby zasoby, int historiaSpekulantaSredniego) {
     super(id, zasoby);
@@ -69,22 +69,22 @@ public class Sredni extends Spekulant {
       }
       if (this.zasoby.iloscProgramowDanegoPoziomu(i) > 0) {
         wynik.add(new OfertaSpekulanta(dzien, this.zasoby.iloscProgramowDanegoPoziomu(i), i, Przedmiot.PROGRAMY,
-          cenaNarzedzi, this));
+          cenaProgramow, this));
         h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.iloscProgramowDanegoPoziomu(i), i,
-          Przedmiot.PROGRAMY, cenaNarzedzi, this));
+          Przedmiot.PROGRAMY, cenaProgramow, this));
       }
       if (this.zasoby.iloscUbranDanegoPoziomu(i) > 0) {
         wynik.add(new OfertaSpekulanta(dzien, this.zasoby.iloscUbranDanegoPoziomu(i), i, Przedmiot.UBRANIA,
-          cenaNarzedzi, this));
+          cenaUbran, this));
         h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.iloscUbranDanegoPoziomu(i), i,
-          Przedmiot.UBRANIA, cenaNarzedzi, this));
+          Przedmiot.UBRANIA, cenaUbran, this));
       }
     }
-    if (this.zasoby.getIloscZasobow(Przedmiot.UBRANIA) > 0) {
-      wynik.add(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.UBRANIA), 1, Przedmiot.UBRANIA,
-        cenaUbran, this));
-      h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.UBRANIA), 1,
-        Przedmiot.UBRANIA, cenaUbran, this));
+    if (this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE) > 0) {
+      wynik.add(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE), 1, Przedmiot.JEDZENIE,
+        cenaJedzenia, this));
+      h.dodajOfertaSpekulanta(new OfertaSpekulanta(dzien, this.zasoby.getIloscZasobow(Przedmiot.JEDZENIE), 1,
+        Przedmiot.JEDZENIE, cenaJedzenia, this));
     }
 
     return wynik;

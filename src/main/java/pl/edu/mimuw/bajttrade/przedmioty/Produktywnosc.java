@@ -29,20 +29,7 @@ public class Produktywnosc {
       case DIAMENTY:
         return diamenty;
       default:
-        return 0;
+        throw new RuntimeException("Nieznany przedmiot");
     }
-  }
-
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append("\t\t programy: ").append(this.programy).append("\n");
-    sb.append("\t\t narzedzia: ").append(this.narzedzia).append("\n");
-    sb.append("\t\t jedzenie: ").append(this.jedzenie).append("\n");
-    sb.append("\t\t diamenty: ").append(this.diamenty).append("\n");
-    sb.append("\t\t ubrania: ").append(this.ubrania).append("\n");
-
-    return sb.toString();
   }
 }

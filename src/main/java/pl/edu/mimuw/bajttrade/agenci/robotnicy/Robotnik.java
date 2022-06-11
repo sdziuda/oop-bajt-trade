@@ -1,7 +1,5 @@
 package pl.edu.mimuw.bajttrade.agenci.robotnicy;
 
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.ToJson;
 import pl.edu.mimuw.bajttrade.agenci.Agent;
 import pl.edu.mimuw.bajttrade.gielda.Historia;
 import pl.edu.mimuw.bajttrade.gielda.Info;
@@ -17,15 +15,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class Robotnik extends Agent {
+  private final Kupowanie kupowanie;
+  private final Uczenie uczenie;
+  private final Zmiana zmiana;
+  private final Produktywnosc produktywnosc;
+  private final List<Integer> premie;
+  private final List<Kariera> sciezkiKariery;
   private Kariera kariera;
-  private Kupowanie kupowanie;
-  private Uczenie uczenie;
-  private Zmiana zmiana;
-  private Produktywnosc produktywnosc;
-
-  private List<Integer> premie;
   private int iloscWyprodukowanych;
-  private List<Kariera> sciezkiKariery;
   private int ileNieJadl;
   private boolean czyZyje;
 
@@ -100,9 +97,12 @@ public abstract class Robotnik extends Agent {
     }
   }
 
+  public abstract Przedmiot coProdukuje(Historia h, Info info, int dzien);
+
   public void rozegrajKoniecDnia() {
     //serio robotnik ma stracić na koniec dnia wszystkie narzędzia, nawet te, co dopiero kupił xd (tak wynika z treści)
     zasoby.usunWszystkieNarzedzia();
+
     if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) <= 0) {
       ileNieJadl++;
     } else {
@@ -114,26 +114,9 @@ public abstract class Robotnik extends Agent {
       ileNieJadl = 0;
       zasoby.usunJedzenie(100);
     }
+
     zasoby.zuzyjUbrania(100);
   }
-
-  public abstract Przedmiot coProdukuje(Historia h, Info info, int dzien);
-
-  /*@Override
-  public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append("\t id: ").append(this.id).append("\n");
-    sb.append("\t poziom: ").append(this.kariera.getPoziom()).append("\n");
-    sb.append("\t kariera: ").append(this.kariera).append("\n");
-    sb.append("\t kupowanie: ").append(this.kupowanie).append("\n");
-    sb.append("\t uczenie: ").append(this.uczenie).append("\n");
-    sb.append("\t zmiana: ").append(this.zmiana).append("\n");
-    sb.append("\t produktywnosc:\n").append(this.produktywnosc);
-    sb.append("\t zasoby:\n").append(this.zasoby);
-
-    return sb.toString();
-  }*/
 
   private void uczySie(Historia h, int dzien) {
     if (ileNieJadl == 1) {
@@ -143,6 +126,7 @@ public abstract class Robotnik extends Agent {
     }
     ileNieJadl = 0;
     Kariera karieraPoZmianie = zmiana.karieraPoZmianie(this, h, dzien);
+
     if (karieraPoZmianie.equals(this.kariera)) {
       kariera.zwiekszPoziom();
       kariera.usunPremie(this.premie, kariera.getPoziom() - 1);
@@ -194,6 +178,7 @@ public abstract class Robotnik extends Agent {
             iloscDanegoPoziomu = iloscWyprodukowanych - ilosc;
             ilosc = iloscWyprodukowanych;
           }
+
           ofertySprzedazyRobotnikow.add(new OfertaRobotnika(dzien, iloscDanegoPoziomu, i, przedmiotProdukowany, this));
           h.dodajOfertaRobotnika(new OfertaRobotnika(dzien, iloscDanegoPoziomu, i, przedmiotProdukowany, this));
           zasoby.usunProgramy(iloscDanegoPoziomu, i);
@@ -203,6 +188,7 @@ public abstract class Robotnik extends Agent {
       if (this.kariera.getPremiowanyPrzedmiot() == Przedmiot.PROGRAMY && przedmiotProdukowany == Przedmiot.PROGRAMY) {
         domyslnyPoziom = this.kariera.getPoziom();
       }
+
       ofertySprzedazyRobotnikow.add(new OfertaRobotnika(dzien, iloscWyprodukowanych - ilosc, domyslnyPoziom,
         przedmiotProdukowany, this));
       h.dodajOfertaRobotnika(new OfertaRobotnika(dzien, iloscWyprodukowanych - ilosc, domyslnyPoziom, przedmiotProdukowany,
@@ -218,6 +204,7 @@ public abstract class Robotnik extends Agent {
 
   private void kupuje(Historia h, int dzien, List<Oferta> ofertyKupnaRobotnikow) {
     var listaZakupow = kupowanie.coKupuje(this, dzien);
+
     ofertyKupnaRobotnikow.addAll(listaZakupow.stream()
       .map(o -> new OfertaRobotnika(o.getDzien(), o.getIlosc(), o.getPoziom(), o.getPrzedmiot(), this))
       .collect(Collectors.toList()));

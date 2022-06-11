@@ -38,16 +38,12 @@ public class Zasoby {
       case PROGRAMY:
         return programy;
       default:
-        throw new RuntimeException("Nie powinno się tak pobierać diamentów");
+        throw new RuntimeException("Nie powinno się tak pobierać diamentów lub innych zasobów");
     }
   }
 
   public double getDiamenty() {
     return diamenty;
-  }
-
-  public double getSumaIlosciZasobow() {
-    return jedzenie + diamenty + narzedzia + ubrania + programy;
   }
 
   public void dodajDiamenty(double ilosc) {
@@ -247,18 +243,5 @@ public class Zasoby {
       default:
         break;
     }
-  }
-
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append("\t\t programy: ").append(this.programy).append("\n");
-    sb.append("\t\t narzedzia: ").append(this.narzedzia).append("\n");
-    sb.append("\t\t jedzenie: ").append(this.jedzenie).append("\n");
-    sb.append("\t\t diamenty: ").append(this.diamenty).append("\n");
-    sb.append("\t\t ubrania: ").append(this.ubrania).append("\n");
-
-    return sb.toString();
   }
 }

@@ -6,6 +6,7 @@ public class Rolnik extends Kariera {
   public Rolnik() {
     super(Przedmiot.JEDZENIE);
   }
+
   @Override
   public String toString() {
     return "rolnik";

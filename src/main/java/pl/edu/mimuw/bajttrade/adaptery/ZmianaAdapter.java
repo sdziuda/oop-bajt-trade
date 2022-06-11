@@ -18,7 +18,7 @@ public class ZmianaAdapter {
       case "rewolucjonista":
         return new Rewolucjonista();
       default:
-        throw new RuntimeException();
+        throw new RuntimeException("Nieznana zmiana: " + zmiana);
     }
   }
 }

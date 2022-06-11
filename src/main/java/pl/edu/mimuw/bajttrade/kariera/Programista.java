@@ -6,6 +6,7 @@ public class Programista extends Kariera {
   public Programista() {
     super(Przedmiot.PROGRAMY);
   }
+
   @Override
   public String toString() {
     return "programista";

@@ -29,16 +29,4 @@ public class Ceny {
         throw new RuntimeException();
     }
   }
-
-  @Override
-  public String toString() {
-    var sb = new StringBuilder();
-
-    sb.append("\t programy: ").append(this.programy).append("\n");
-    sb.append("\t jedzenie: ").append(this.jedzenie).append("\n");
-    sb.append("\t ubrania: ").append(this.ubrania).append("\n");
-    sb.append("\t narzedzia: ").append(this.narzedzia).append("\n");
-
-    return sb.toString();
-  }
 }

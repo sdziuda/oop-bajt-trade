@@ -11,10 +11,10 @@ import pl.edu.mimuw.bajttrade.uczenie.Uczenie;
 import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
 public class Sredniak extends Robotnik {
-  private int historiaSredniejProdukcji;
+  private final int historiaSredniejProdukcji;
 
-  public Sredniak (int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                 Produktywnosc produktywnosc, Zasoby zasoby, int historiaSredniejProdukcji) {
+  public Sredniak(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
+                  Produktywnosc produktywnosc, Zasoby zasoby, int historiaSredniejProdukcji) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
     this.historiaSredniejProdukcji = historiaSredniejProdukcji;
   }

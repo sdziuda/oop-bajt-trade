@@ -25,7 +25,7 @@ public class UczenieAdapter {
       case "student":
         return new Student(uczenie.zapas, uczenie.okres);
       default:
-        throw new RuntimeException();
+        throw new RuntimeException("Nieznany typ uczenia: " + uczenie.typ);
     }
   }
 }

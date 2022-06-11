@@ -19,7 +19,7 @@ public class RobotnikJson {
   public Zasoby zasoby;
 
   public RobotnikJson(int id, int poziom, Kariera kariera, Kupowanie kupowanie, ProdukcjaJson produkcja, Uczenie uczenie,
-                  Zmiana zmiana, Produktywnosc produktywnosc, Zasoby zasoby) {
+                      Zmiana zmiana, Produktywnosc produktywnosc, Zasoby zasoby) {
     this.id = id;
     this.poziom = poziom;
     this.kariera = kariera;

@@ -12,7 +12,7 @@ import pl.edu.mimuw.bajttrade.zmiana.Zmiana;
 
 public class Krotkowzroczny extends Robotnik {
   public Krotkowzroczny(int id, int poziom, Kariera kariera, Kupowanie kupowanie, Uczenie uczenie, Zmiana zmiana,
-                Produktywnosc produktywnosc, Zasoby zasoby) {
+                        Produktywnosc produktywnosc, Zasoby zasoby) {
     super(id, poziom, kariera, kupowanie, uczenie, zmiana, produktywnosc, zasoby);
   }
 

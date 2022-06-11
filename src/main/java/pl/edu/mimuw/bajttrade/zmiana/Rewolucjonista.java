@@ -23,7 +23,7 @@ public class Rewolucjonista implements Zmiana {
         case NARZEDZIA:
           return new Inzynier();
         default:
-          throw new RuntimeException();
+          throw new RuntimeException("Nieznany przedmiot");
       }
     } else {
       return r.getAktywnaKariera();
