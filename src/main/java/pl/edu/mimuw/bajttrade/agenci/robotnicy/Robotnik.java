@@ -100,9 +100,6 @@ public abstract class Robotnik extends Agent {
   public abstract Przedmiot coProdukuje(Historia h, Info info, int dzien);
 
   public void rozegrajKoniecDnia() {
-    //serio robotnik ma stracić na koniec dnia wszystkie narzędzia, nawet te, co dopiero kupił xd (tak wynika z treści)
-    zasoby.usunWszystkieNarzedzia();
-
     if (zasoby.getIloscZasobow(Przedmiot.JEDZENIE) <= 0) {
       ileNieJadl++;
     } else {
@@ -200,6 +197,8 @@ public abstract class Robotnik extends Agent {
 
     if (zasoby.getIloscZasobow(Przedmiot.UBRANIA) < 100) premie.remove(Integer.valueOf(-1 * info.getKaraZaBrakUbran()));
     premie.remove(Integer.valueOf(zasoby.getListaNarzedzi().stream().mapToInt(Narzedzie::getPoziom).sum()));
+    //Niby powinien tracić narzędzia na koniec dnia, ale wtedy zużywałby też te dopiero co kupione, co nie ma sensu
+    zasoby.usunWszystkieNarzedzia();
   }
 
   private void kupuje(Historia h, int dzien, List<Oferta> ofertyKupnaRobotnikow) {
