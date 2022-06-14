@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    File wejscie = new File("dane.json");
+    File wejscie = new File(args[0]);
     BufferedReader bf = new BufferedReader(new FileReader(wejscie));
     String json;
     var sb = new StringBuilder();
@@ -39,7 +39,7 @@ public class Main {
 
     if (gielda != null) {
       try {
-        gielda.symuluj(jsonAdapter);
+        gielda.symuluj(jsonAdapter, args[1]);
       } catch (Exception e) {
         System.out.println("Wystąpił błąd: " + e.getMessage());
       }

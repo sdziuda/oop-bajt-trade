@@ -43,8 +43,8 @@ public class Gielda {
     return this.spekulanci;
   }
 
-  public void symuluj(JsonAdapter<Gielda> adapter) throws Exception {
-    BufferedWriter bw = new BufferedWriter(new FileWriter("wyjscie.json"));
+  public void symuluj(JsonAdapter<Gielda> adapter, String wyjscie) throws Exception {
+    BufferedWriter bw = new BufferedWriter(new FileWriter(wyjscie));
     bw.append("[\n");
 
     while (dzien <= info.getDlugosc()) {
