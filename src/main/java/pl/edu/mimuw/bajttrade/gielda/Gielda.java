@@ -45,6 +45,7 @@ public class Gielda {
 
   public void symuluj(JsonAdapter<Gielda> adapter) throws Exception {
     BufferedWriter bw = new BufferedWriter(new FileWriter("wyjscie.json"));
+    bw.append("[\n");
 
     while (dzien <= info.getDlugosc()) {
       List<Robotnik> robotnicyPracujacy = new ArrayList<>();
@@ -77,10 +78,11 @@ public class Gielda {
         r.rozegrajKoniecDnia();
       }
 
-      bw.append(adapter.indent("  ").toJson(this)).append(dzien == info.getDlugosc() ? "" : ",\n");
+      bw.append(adapter.indent("  ").toJson(this)).append(dzien == info.getDlugosc() ? "\n" : ",\n");
       dzien++;
     }
 
+    bw.append("]");
     bw.close();
   }
 
